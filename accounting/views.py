@@ -1,4 +1,5 @@
 # importaciones necesarias para trabajar con las vistas de la aplicacion accounting 
+from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login
 from django.http import JsonResponse, HttpResponse
 from django.shortcuts import get_object_or_404, render, redirect
