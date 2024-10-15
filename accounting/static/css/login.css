@@ -1,0 +1,136 @@
+@import url('https://fonts.googleapis.com/css2?family=Assistant:wght@200..800&family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root{
+    --primary-color: #6200ff;
+    --secondary-color: #510585;
+    --tertiary-color: #ddd;
+    --bg-color:  #f0f0f0;
+    --danger-color: #ff0000;
+    --success-color: #00ff00;
+    --warning-color: #ffcc00;
+    --info-color: #00ccff;
+    --primary-font:  "Assistant", sans-serif;
+    --secondary-font: 'Roboto Condensed', sans-serif;
+}
+
+
+body {
+    font-family: var(--primary-font);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #f0f0f0;
+}
+
+h2{
+    margin-bottom: 20px;
+    font-size: 2.5rem;
+}
+
+.login-container {
+    background-color: var(--bg-color);
+    padding: 6rem;
+    border-radius: 10px;
+    box-shadow: 0 0 100px rgba(69, 3, 131, 0.404);
+    text-align: center;
+}
+
+.icon img{
+    width: 64px;
+    height: 64px;
+}
+
+.information-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+}
+
+.information-container img{
+    width: 30px;
+    height: 30px;
+}
+
+input {
+    display: block;
+    width: 70%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 1rem;
+    font-family: var(--secondary-font);
+}
+
+.username-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.password-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+/* Password visibility toggle */
+.toggle-password {
+    width: 2rem;
+    height: 100%; 
+    position: relative;
+    right: 4px; 
+    margin-left: -2rem;
+    margin-top: -5px;
+    border: none;
+    background: none;
+    font-size: 24px;
+    opacity: 0.5;
+    transition: 0.3s ease-in-out opacity;
+}
+
+.toggle-password:hover{
+    cursor: pointer;
+    opacity: 1;
+    transition: 0.3s ease-in-out
+}
+
+.submit{
+    width: 30%;
+    padding: 10px;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: 0.5s ease-in-out background-color;
+    font-family: var(--secondary-font);
+    font-size: large;
+    font-weight: bold;
+}
+
+.submit:hover {
+    background-color:  var(--secondary-color);
+    transition: 0.5s ease-in-out;	
+}
+
+.alert{
+    padding-top: 20px;
+    border-radius: 4px;
+    font-size: 1rem;
+    font-family: var(--secondary-font);
+    color: var(--danger-color);
+}
