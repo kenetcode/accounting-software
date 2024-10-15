@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TechDynamics - Inicio de Sesión</title>
+    <link rel="stylesheet" href="../static/css/login.css">
+</head>
+<body>
+    <div class="login-container" id="login">
+        <div class="icon"><img src="https://img.icons8.com/external-bearicons-detailed-outline-bearicons/64/external-login-call-to-action-bearicons-detailed-outline-bearicons-1.png" alt="external-login-call-to-action-bearicons-detailed-outline-bearicons-1"/></div>
+        <h2>Inicio de Sesión</h2>
+        <section class="information-container">
+            <div class="username-container">
+                <img src="https://img.icons8.com/ios-glyphs/30/user--v1.png" alt="user"/>
+                <input type="text" id="input-username" placeholder="Nombre de Usuario" required>
+            </div>
+            <div class="password-container">
+                <img src="https://img.icons8.com/material-rounded/24/password.png" alt="password"/>
+                <input type="password" id="input-password" placeholder="Contraseña" required>
+                <button type="button" id="toggle-password" class="toggle-password">👁</button>
+            </div>
+            <button type="submit" class="submit" id="submit">Ingresar</button>
+        </section>
+        <div class="error-container" id="error-container"></div>
+    </div>
+    <script src="../static/js/index.js"></script>
+</body>
+</html>
