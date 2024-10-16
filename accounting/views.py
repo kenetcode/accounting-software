@@ -8,11 +8,10 @@ from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 # Create your views here.
-@login_required
+
 def home_view(request):
     return render(request, 'home.html')
 
-@login_required
 def login_view(request):
     if request.method == 'POST':
         username = request.POST['username']
@@ -22,6 +21,6 @@ def login_view(request):
             login(request, user)
             return redirect('/')
         else:
-            return render(request, 'login.html', {'error': 'Nombre de usuario o contraseña inválidos'})
+            return render(request, 'login.html', {'error': 'Usuario o contraseña incorrectos'})
     else:
         return render(request, 'login.html')

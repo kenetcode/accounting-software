@@ -10,19 +10,20 @@
     <div class="login-container" id="login">
         <div class="icon"><img src="https://img.icons8.com/external-bearicons-detailed-outline-bearicons/64/external-login-call-to-action-bearicons-detailed-outline-bearicons-1.png" alt="external-login-call-to-action-bearicons-detailed-outline-bearicons-1"/></div>
         <h2>Inicio de Sesión</h2>
-        <section class="information-container">
+        <form class="information-container" method="POST" action="#">
+            {% csrf_token %}
             <div class="username-container">
                 <img src="https://img.icons8.com/ios-glyphs/30/user--v1.png" alt="user"/>
-                <input type="text" id="input-username" placeholder="Nombre de Usuario" required>
+                <input type="text" id="input-username" placeholder="Nombre de Usuario" required name="username">
             </div>
             <div class="password-container">
                 <img src="https://img.icons8.com/material-rounded/24/password.png" alt="password"/>
-                <input type="password" id="input-password" placeholder="Contraseña" required>
+                <input type="password" id="input-password" placeholder="Contraseña" required name="password">
                 <button type="button" id="toggle-password" class="toggle-password">👁</button>
             </div>
             <button type="submit" class="submit" id="submit">Ingresar</button>
-        </section>
-        <div class="error-container" id="error-container"></div>
+            <div class="error-container" id="error-container">{{ error }}</div>
+        </form>
     </div>
     <script src="../static/js/login.js"></script>
 </body>
