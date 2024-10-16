@@ -9,7 +9,6 @@ from django.contrib.auth.decorators import login_required
 # Create your views here.
 # Create your views here.
 
-<<<<<<< HEAD
 
 def home_view(request):
     return render(request, 'home.html')
@@ -19,11 +18,6 @@ def prueba_view(request): #Aqui se define la vista de prueba borrar despues
     return render(request, 'vistaDePrueba.html')
 
 
-=======
-def home_view(request):
-    return render(request, 'home.html')
-
->>>>>>> loginConexion
 def login_view(request):
     if request.method == 'POST':
         username = request.POST['username']
