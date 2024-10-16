@@ -8,9 +8,11 @@ from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 # Create your views here.
+@login_required
 def home_view(request):
     return render(request, 'home.html')
 
+@login_required
 def login_view(request):
     if request.method == 'POST':
         username = request.POST['username']
