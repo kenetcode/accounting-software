@@ -1,0 +1,125 @@
+@import url('https://fonts.googleapis.com/css2?family=Assistant:wght@200..800&family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root{
+    --primary-color: #9f79ff;
+    --secondary-color: #510585;
+    --tertiary-color: #3b00b3;
+    --quarter-color: #ff8c42;
+    --white: #fff;
+    --bg-color:  #f0f0f0;
+    --primary-font:  "Assistant", sans-serif;
+    --secondary-font: 'Roboto Condensed', sans-serif;
+}
+
+body {
+    font-family: var(--secondary-font);
+    background-color: var(--bg-color);
+    height: 100vh;
+}
+
+.container-header{
+    display: flex;
+    justify-content: space-between;
+    background-color: var(--secondary-color);
+    color: var(--white);
+    font-family: var(--primary-font);
+}
+
+.content-header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+    font-size: 12px;
+}
+
+.container-header img {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 100px;
+    box-shadow: 0 0 1rem rgba(134, 5, 255, 0.808);
+}
+
+.container-main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+    height: 85%;
+}
+
+.categories {
+    background-color: var(--white);
+    border-radius: 8px;
+    box-shadow: 0 0 100px rgba(69, 3, 131, 0.404);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 3rem;
+    padding: 3rem;
+    width: 60%;
+}
+
+.categories h2{
+    font-size: 2.5rem;
+    color: var(--secondary-color);
+    font-weight: bold;
+}
+
+.container-categories {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 4rem;
+    width: 100%;
+}
+
+.cards-categories {
+    background-color: var(--primary-color);
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(69, 3, 131, 0.404);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1rem;
+    font-size: 2rem;
+    color: var(--secondary-color);
+}
+
+.options{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.options-button{
+    background-color: var(--secondary-color);
+    color: var(--white);
+    padding: 1rem;
+    border-radius: 8px;
+    font-weight: bold;
+    font-size: 1rem;
+    width: 80%;
+    border: transparent;
+    cursor: pointer;
+    transition: 0.3s ease-in-out;
+}
+
+.options-button:hover{
+    background-color: var(--quarter-color);
+    transition: 0.3s ease-in-out;
+}

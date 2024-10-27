@@ -1,0 +1,141 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --primary-color: #9f79ff;
+    --secondary-color: #510585;
+    --tertiary-color: #3b00b3;
+    --quarter-color: #ff8c42;
+    --white: #fff;
+    --bg-color: #f0f0f0;
+    --primary-font: "Assistant", sans-serif;
+    --secondary-font: "Roboto Condensed", sans-serif;
+}
+
+body {
+    font-family: var(--primary-font);
+    background-color: var(--bg-color);
+    height: 100vh;
+    color: var(--secondary-color);
+}
+
+.container-header{
+    display: flex;
+    justify-content: space-between;
+    background-color: var(--secondary-color);
+    color: var(--white);
+    font-family: var(--primary-font);
+}
+
+.content-header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+    font-size: 12px;
+}
+
+.container-header img {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 100px;
+    box-shadow: 0 0 1rem rgba(134, 5, 255, 0.808);
+}
+
+.container {
+    background-color: var(--white);
+    border-radius: 8px;
+    box-shadow: 0 0 100px rgba(69, 3, 131, 0.404);
+    font-family: var(--secondary-font);
+    width: 80%;
+    height: 60%;
+    padding: 2rem;
+    margin: 5rem auto 0 auto;
+}
+
+.table-container {
+    max-height: 80%; /* Ajusta este valor a la altura deseada */
+    overflow-y: auto;  /* Habilita el scroll vertical */
+    border: 1px solid var(--secondary-color); /* Añade un borde para que destaque */
+    border-radius: 4px;
+}
+
+/* Ajuste opcional para la barra de scroll */
+.table-container::-webkit-scrollbar {
+    width: 8px;
+}
+
+.table-container::-webkit-scrollbar-thumb {
+    background-color: var(--secondary-color);
+    border-radius: 4px;
+}
+
+.table-container::-webkit-scrollbar-track {
+    background-color: var(--bg-color);
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.header h1 {
+    font-size: 1.8em;
+    margin: 0;
+    color: var(--secondary-color);
+}
+
+.search-container {
+    display: flex;
+    align-items: center;
+}
+
+.search-container input[type="text"] {
+    padding: 5px;
+    border: 1px solid var(--secondary-color);
+    border-radius: 4px;
+    font-family: var(--secondary-font);
+}
+
+.search-container button {
+    padding: 5px 10px;
+    margin-left: 5px;
+    background-color: var(--tertiary-color);
+    color: var(--white);
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-family: var(--primary-font);
+}
+
+.search-container button:hover {
+    background-color: var(--quarter-color);
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: var(--secondary-font);
+}
+
+.table th, .table td {
+    padding: 10px;
+    text-align: left;
+    border: 1px solid var(--secondary-color);
+}
+
+.table th {
+    background-color: var(--primary-color);
+    color: var(--white);
+}
+
+.table tr:nth-child(even) {
+    background-color: var(--bg-color);
+}
