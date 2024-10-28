@@ -33,47 +33,14 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <!-- Aquí se pueden agregar filas de cuentas -->
+                    <!-- Aquí se agregan los datos de las cuentas de la tabla catalogo de la DB -->
+                    {% for catalogo in catalogos %}
                     <tr>
-                        <td>101</td>
-                        <td>Cuenta Ejemplo</td>
-                        <td>Activo</td>
+                        <td>{{ catalogo.codigo }}</td>
+                        <td>{{ catalogo.cuenta }}</td>
+                        <td>{{ catalogo.naturaleza }}</td>
                     </tr>
-                    <tr>
-                        <td>102</td>
-                        <td>Cuenta Ejemplo 2</td>
-                        <td>Pasivo</td>
-                    </tr>
-                    <tr>
-                        <td>102</td>
-                        <td>Cuenta Ejemplo 2</td>
-                        <td>Pasivo</td>
-                    </tr>
-                    <tr>
-                        <td>102</td>
-                        <td>Cuenta Ejemplo 2</td>
-                        <td>Pasivo</td>
-                    </tr>
-                    <tr>
-                        <td>102</td>
-                        <td>Cuenta Ejemplo 2</td>
-                        <td>Pasivo</td>
-                    </tr>
-                    <tr>
-                        <td>102</td>
-                        <td>Cuenta Ejemplo 2</td>
-                        <td>Pasivo</td>
-                    </tr>
-                    <tr>
-                        <td>102</td>
-                        <td>Cuenta Ejemplo 2</td>
-                        <td>Pasivo</td>
-                    </tr>
-                    <tr>
-                        <td>102</td>
-                        <td>Cuenta Ejemplo 2</td>
-                        <td>Pasivo</td>
-                    </tr>
+                    {% endfor %}
                 </tbody>
             </table>
         </div>

@@ -4,6 +4,7 @@ from django.contrib.auth import authenticate, login
 from django.http import JsonResponse, HttpResponse
 from django.shortcuts import get_object_or_404, render, redirect
 #from .models import //Aqui van los modelos a importar # importamos el modelo Usuario de la aplicacion accounting 
+from .models import Catalogo
 from django.contrib.auth.decorators import login_required 
 
 # Create your views here.
@@ -12,10 +13,6 @@ from django.contrib.auth.decorators import login_required
 
 def home_view(request):
     return render(request, 'home.html')
-
-
-def prueba_view(request): #Aqui se define la vista de prueba borrar despues
-    return render(request, 'catalogo.html')
 
 
 def login_view(request):
@@ -30,3 +27,8 @@ def login_view(request):
             return render(request, 'login.html', {'error': 'Usuario o contraseña incorrectos'})
     else:
         return render(request, 'login.html')
+
+
+def catalogo_view(request):
+    catalogos = Catalogo.objects.all()
+    return render(request, 'catalogo.html', {'catalogos': catalogos})

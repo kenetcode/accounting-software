@@ -21,6 +21,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('accounting.urls')),
     path('login/', include('accounting.urls')),
-    path('prueba/', include('accounting.urls')), #Aqui se define la ruta de la vista de prueba borrar despues
-    # Tambien borrar la vista de prueba que esta en templates/accounting/vistaDePrueba.html
+    path('catalogo/', include('accounting.urls')),
 ]
