@@ -13,9 +13,9 @@ from django.contrib.auth.decorators import login_required
 def home_view(request):
     return render(request, 'home.html')
 
-@login_required 
+
 def prueba_view(request): #Aqui se define la vista de prueba borrar despues
-    return render(request, 'vistaDePrueba.html')
+    return render(request, 'catalogo.html')
 
 
 def login_view(request):
