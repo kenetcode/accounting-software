@@ -10,7 +10,7 @@ from django.contrib.auth.decorators import login_required
 # Create your views here.
 # Create your views here.
 
-
+@login_required
 def home_view(request):
     return render(request, 'home.html')
 
@@ -28,7 +28,7 @@ def login_view(request):
     else:
         return render(request, 'login.html')
 
-
+@login_required
 def catalogo_view(request):
     catalogos = Catalogo.objects.all()
     return render(request, 'catalogo.html', {'catalogos': catalogos})
