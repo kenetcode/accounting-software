@@ -1,0 +1,67 @@
+@import url('https://fonts.googleapis.com/css2?family=Assistant:wght@200..800&family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap');
+
+:root {
+    --primary-color: #9f79ff;
+    --secondary-color: #510585;
+    --tertiary-color: #3b00b3;
+    --quarter-color: #ff8c42;
+    --white: #fff;
+    --bg-color: #f0f0f0;
+    --primary-font: "Assistant", sans-serif;
+    --secondary-font: "Roboto Condensed", sans-serif;
+}
+
+#sidebar.activar{
+    left: 0px;
+}
+
+#sidebar{
+    position: fixed;
+    width: 200px;
+    height: 100%;
+    top: 0px;
+    background: #1a1a1aec;
+    left: -200px;
+    transition: all 0.7s ease-in-out;
+}
+
+#sidebar img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 100px;
+    box-shadow: 0 0 1rem rgba(134, 5, 255, 0.808);
+}
+
+#sidebar ul li{
+    color: var(--primary-color);
+    font-weight: bold;
+    text-align: center;
+    padding: 15px 10px;
+    border-bottom: 2px solid var(--secondary-color);
+    cursor: pointer;
+    font-size: large;
+    transition: all 0.3s linear;
+}
+
+#sidebar ul li:hover{
+    color: var(--quarter-color);
+    font-size: 1.5rem;
+    transition: all 0.3s linear;
+}
+
+#sidebar .toggle-button{
+    position: absolute;
+    left: 230px;
+    top: 30px;
+    font-size: 24px;
+    color: var(--white);
+    cursor: pointer;
+}
+
+#sidebar .toggle-button span{
+    display: block;
+    width: 40px;
+    text-align: center;
+    font-size: 30px;
+}
