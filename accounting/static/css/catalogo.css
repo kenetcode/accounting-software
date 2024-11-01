@@ -24,23 +24,6 @@ body {
     color: var(--secondary-color);
 }
 
-.container-header{
-    display: flex;
-    justify-content: flex-end;
-    background-color: var(--secondary-color);
-    color: var(--white);
-    font-family: var(--primary-font);
-}
-
-.content-header {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 1rem;
-    height: 100px;
-    font-size: 12px;
-}
-
 .container {
     background-color: var(--white);
     border-radius: 8px;
@@ -132,8 +115,4 @@ body {
 
 .table tr:nth-child(even) {
     background-color: var(--bg-color);
-}
-
-.activar{
-    left: 0;
 }

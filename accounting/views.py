@@ -10,6 +10,25 @@ from django.contrib.auth.decorators import login_required
 # Create your views here.
 # Create your views here.
 
+#Modelo de la vista para Pruebas
+def prueba_view(request):
+    catalogos = Catalogo.objects.all()
+    return render(request, 'transacciones.html', {'catalogos': catalogos})
+#Borrar
+
+def cuentas_view(request, id):
+    try:
+        # Obtén el objeto Catalogo específico usando el `id`
+        catalogo = Catalogo.objects.get(codigo=id)
+        catalogo_data = {
+            "codigo": catalogo.codigo,
+            "cuenta": catalogo.cuenta
+        }
+        return JsonResponse(catalogo_data)
+    except Catalogo.DoesNotExist:
+        return JsonResponse({"error": "Catalogo no encontrado"}, status=404)
+#Borrar
+
 @login_required
 def home_view(request):
     return render(request, 'home.html')

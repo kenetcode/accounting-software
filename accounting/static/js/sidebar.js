@@ -1,5 +1,9 @@
 const btnToggle = document.querySelector('.toggle-button');
+const btnHome = document.querySelector('.home-button');
+const btnCatalogo = document.querySelector('.catalogo-button');
+const btnTransacciones = document.querySelector('.transacciones-button');
 let toggle = 0;
+
 btnToggle.addEventListener('click', function () {
     const sidebar = document.getElementById('sidebar');
     const span = btnToggle.getElementsByTagName('span')
@@ -21,8 +25,19 @@ btnToggle.addEventListener('click', function () {
     sidebar.classList.toggle('activar');
 });
 
-const btnHome = document.querySelector('.home-button');
+
 btnHome.addEventListener('click', function () {
     window.location.href = "/";
 });
+
+//MODIFICAR
+btnTransacciones.addEventListener('click', function () {
+    window.location.href = "/prueba/";
+});
+
+btnCatalogo.addEventListener('click', function () {
+    window.location.href = "/catalogo/";
+});
+
+
 
