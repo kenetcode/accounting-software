@@ -14,6 +14,7 @@ class Catalogo(models.Model):
     codigo = models.CharField(max_length=255, unique=True)
     cuenta = models.CharField(max_length=255)
     naturaleza = models.CharField(max_length=255)
+    tipo = models.CharField(max_length=255)
 
     def __str__(self):
         return self.codigo
