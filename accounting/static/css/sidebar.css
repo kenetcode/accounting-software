@@ -19,6 +19,7 @@
 
 #sidebar.activar{
     left: 0px;
+    z-index: 1;
 }
 
 #sidebar{
@@ -30,6 +31,7 @@
     left: -200px;
     font-family: var(--primary-font);
     transition: all 0.8s ease-in-out;
+    z-index: 1;
 }
 
 #sidebar img {

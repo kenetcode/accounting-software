@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Transacciones</title>
     <link rel="stylesheet" href="../static/css/sidebar.css">
     <link rel="stylesheet" href="../static/css/transacciones.css">
 </head>
@@ -17,11 +17,12 @@
             <span class="deactivate">&#9668;</span>
         </div>
         <ul>
+            <!-- COLOCAR DISPLAY:NONE A LA OPCION QUE NO SE DEBE USAR -->
             <li><img src="../static/img/logo.webp" alt="logo"></li>
             <li class="home-button">Home</li>
-            <li class="transacciones-button">Transacciones</li>
+            <li class="transacciones-button" style="display: none;">Transacciones</li>
             <li class="costos-button">Control de Costos</li>
-            <!-- <li class="cuentas-button">Catalogo de Cuentas</li> -->
+            <li class="catalogo-button">Catalogo de Cuentas</li>
             <li class="libro-button">Libro Mayor</li>
             <li class="estados-button">Estados Financieros</li>
             <li class="cierre-button">Cierre Contable</li>
@@ -34,49 +35,63 @@
         </div>
     </header>
     <!-- Sidebar Fin -->
-
+    <form id="form">
+        <section class="form-row">
+            <div class="option"><label>Fecha:</label>
+                <input type="date" id="fecha" name="fecha">
+            </div>
+            <div class="option"><label>Cuenta:</label>
+                <select id="cuentas">
+                    <option value="" selected disabled>Selecciona una opción</option>
+                    {% for catalogo in catalogos %}
+                    <option id="slc-cuenta" value="{{ catalogo.codigo }}">{{ catalogo.codigo }} - {{ catalogo.cuenta }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="option"><label>Cargo:</label>
+                <input type="number" class="small-input" id="cargo">
+            </div>
+            <div class="option"><label>Abono:</label>
+                <input type="number" class="small-input" id="abono">
+            </div>
+            <div class="option">
+                <button type="button" class="cuenta-btn">Agregar</button>
+                <button type="button" class="regresar-btn">Regresar</button>
+            </div>
+        </section>
+        <section id="alert">
+            <div id="data">
+                <p id="alert-txt">Por favor, llene todos los campos</p>
+                <button type="button" id="alert-btn">Ok</button>
+            </div>
+        </section>
+    </form>
     <main class="container">
-        <form class="form">
-            <section class="form-row">
-                <div class="option"><label>Fecha:</label>
-                    <input type="date" id="fecha" name="fecha">
-                </div>
-                <div class="option"><label>Código Cuenta:</label>
-                    <input type="text" class="medium-input">
-                </div>
-                <div class="option">
-                    <label>Descripción:</label>
-                    <input type="text" class="description-input">
-                </div>
-                <div class="option"><label>Cargo:</label>
-                    <input type="number" class="small-input">
-                </div>
-                <div class="option"><label>Abono:</label>
-                    <input type="text" class="small-input">
-                </div>
-                <button type="button" class="add-button">Agregar</button>
-            </section>
-
-        </form>
-
+        <button type="button" class="add-btn">Agregar Cuenta</button>
         <table class="table">
             <thead>
                 <tr>
                     <th>Fecha</th>
                     <th>Código</th>
                     <th>Descripción</th>
-                    <th>Movimientos</th>
+                    <th>Cargo</th>
+                    <th>Abono</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody id="tbody">
+            
+            </tbody>
+            <tclose id="total">
                 <tr>
                     <td colspan="3">TOTAL:</td>
-                    <td>$</td>
+                    <td id="total-cargo">$0</td>
+                    <td id="total-abono">$0</td>
                 </tr>
-            </tbody>
+            </tclose>
         </table>
     </main>
     <script src="../static/js/sidebar.js"></script>
+    <script src="../static/js/transacciones.js"></script>
 </body>
 
 </html>
