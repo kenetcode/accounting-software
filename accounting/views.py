@@ -4,19 +4,19 @@ from django.contrib.auth import authenticate, login
 from django.http import JsonResponse, HttpResponse
 from django.shortcuts import get_object_or_404, render, redirect
 #from .models import //Aqui van los modelos a importar # importamos el modelo Usuario de la aplicacion accounting 
-from .models import Catalogo
+
 from django.contrib.auth.decorators import login_required 
 
 # Create your views here.
 # Create your views here.
 
-#Modelo de la vista para Pruebas
+""" #Modelo de la vista para Pruebas
 def prueba_view(request):
     catalogos = Catalogo.objects.all()
     return render(request, 'transacciones.html', {'catalogos': catalogos})
-#Borrar
+#Borrar """
 
-def cuentas_view(request, id):
+""" def cuentas_view(request, id):
     try:
         # Obtén el objeto Catalogo específico usando el `id`
         catalogo = Catalogo.objects.get(codigo=id)
@@ -27,7 +27,7 @@ def cuentas_view(request, id):
         return JsonResponse(catalogo_data)
     except Catalogo.DoesNotExist:
         return JsonResponse({"error": "Catalogo no encontrado"}, status=404)
-#Borrar
+#Borrar """
 
 @login_required
 def home_view(request):
@@ -47,7 +47,9 @@ def login_view(request):
     else:
         return render(request, 'login.html')
 
-@login_required
+""" @login_required
 def catalogo_view(request):
+    cuentasMayor = CuentasMayor.objects.all()
     catalogos = Catalogo.objects.all()
     return render(request, 'catalogo.html', {'catalogos': catalogos})
+ """
