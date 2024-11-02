@@ -51,3 +51,36 @@ def catalogo_view(request):
     cuentasMayor = CuentasMayor.objects.all()
     cuentasDetalle = CuentasDetalle.objects.all()
     return render(request, 'catalogo.html', {'cuentasMayor': cuentasMayor, 'cuentasDetalle': cuentasDetalle})
+
+def controlCostos_view(request):
+    return render(request, 'controlCostos.html')
+
+def transacciones_view(request):
+    return render(request,'transacciones.html')
+
+#Aqui va la vista de estados financieros, y las vistas que van dentro de esta.
+#-------------------------------------------------------------------------------------------------------------
+def estadosFinancieros_view(request):
+    return render(request, 'estadosFinancieros.html')
+
+#Las siguientes son las sub-templates de estados financieros
+
+def balanceDeComprobacion_view(request):
+    return render(request, 'balanceComprobacion.html')
+
+def estadoDeResultados_view(request):
+    return render(request, 'estadoResultados.html')
+
+def estadoDeCapital_view(request):
+    return render(request, 'estadoCapital.html')
+
+def balanceGeneral_view(request):
+    return render(request, 'balanceGeneral.html')
+#-------------------------------------------------------------------------------------------------------------
+
+def libroMayor_view(request):
+    return render(request, 'libroMayor.html')
+
+#Esta vista es la que faltaba en el menu.
+def cierreContable_view(request):
+    return render(request, 'cierreContable.html')

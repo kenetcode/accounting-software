@@ -26,4 +26,9 @@ urlpatterns = [
     #Borrar
     path('login/', include('accounting.urls')),
     path('catalogo/', include('accounting.urls')),
+    path('controldecostos/', include('accounting.urls')),
+    path('transacciones/', include('accounting.urls')),
+    path('estadosfinancieros/', include('accounting.urls')),
+    path('libromayor/', include('accounting.urls')),
+    path('cierrecontable/', include('accounting.urls')),
 ]
