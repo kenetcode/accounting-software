@@ -1,6 +1,5 @@
 from django.urls import path
 from . import views, models
-from .views import crear_cuentas
 
 app_name = 'accounting'
 urlpatterns = [
