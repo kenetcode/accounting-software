@@ -4,9 +4,8 @@ from django.contrib.auth import authenticate, login
 from django.http import JsonResponse, HttpResponse
 from django.shortcuts import get_object_or_404, render, redirect
 #from .models import //Aqui van los modelos a importar # importamos el modelo Usuario de la aplicacion accounting 
-
 from django.contrib.auth.decorators import login_required 
-
+from .models import CuentasMayor, CuentasDetalle
 # Create your views here.
 # Create your views here.
 
@@ -49,6 +48,6 @@ def login_view(request):
 
 @login_required
 def catalogo_view(request):
-    cuentasMayor = cuentasMayor.objects.all()
-    cuentasDetalle = cuentasDetalle.objects.all()
+    cuentasMayor = CuentasMayor.objects.all()
+    cuentasDetalle = CuentasDetalle.objects.all()
     return render(request, 'catalogo.html', {'cuentasMayor': cuentasMayor, 'cuentasDetalle': cuentasDetalle})
