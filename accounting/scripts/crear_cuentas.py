@@ -30,4 +30,4 @@ def run():
     for cuenta in cuentas_detalle:
         print(cuenta.nombreCuenta)
  """
-
+def run():
