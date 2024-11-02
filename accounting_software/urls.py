@@ -29,6 +29,7 @@ urlpatterns = [
     path('controldecostos/', include('accounting.urls')),
     path('transacciones/', include('accounting.urls')),
     path('estadosfinancieros/', include('accounting.urls')),
+    path('balancedecomprobacion/', include('accounting.urls')),
     path('libromayor/', include('accounting.urls')),
     path('cierrecontable/', include('accounting.urls')),
 ]

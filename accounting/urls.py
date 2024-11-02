@@ -15,7 +15,7 @@ urlpatterns = [
     #Aqui van las rutas de las vistas de estados financieros, y las vistas que van dentro de esta.
     #-------------------------------------------------------------------------------------------------------------
     path('estadosfinancieros/', views.estadosFinancieros_view, name='estadosFinancieros'),
-    
+    path('balancedecomprobacion/', views.balanceDeComprobacion_view, name='balanceDeComprobacion'),
     #-------------------------------------------------------------------------------------------------------------
     path('libromayor/', views.libroMayor_view, name='libroMayor'),
     path('cierrecontable/', views.cierreContable_view, name='cierreContable'),
