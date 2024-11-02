@@ -84,3 +84,6 @@ def libroMayor_view(request):
 #Esta vista es la que faltaba en el menu.
 def cierreContable_view(request):
     return render(request, 'cierreContable.html')
+
+#Aqui van los objetos de las tablas de las cuentas de mayor y detalle, se crean con el script crear_cuentas.py
+#------------------------------------------------------------------------------------------------------------

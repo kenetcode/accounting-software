@@ -1,5 +1,7 @@
 from django.urls import path
 from . import views
+from .views import crear_cuentas
+
 app_name = 'accounting'
 urlpatterns = [
     path('', views.home_view, name='home'),
@@ -18,5 +20,5 @@ urlpatterns = [
     #-------------------------------------------------------------------------------------------------------------
     path('libromayor/', views.libroMayor_view, name='libroMayor'),
     path('cierrecontable/', views.cierreContable_view, name='cierreContable'),
-
+    path('crear_cuentas/', crear_cuentas, name='crear_cuentas'),
 ]

@@ -11,16 +11,11 @@ class CuentasMayor(models.Model):
 
 #Tabla para alamacenar las cuentas de detalle de cada cuenta mayor
 class CuentasDetalle(models.Model):
+    codigoCuentaMayor = models.ForeignKey(CuentasMayor, on_delete=models.CASCADE)
     codigoCuentaDetalle = models.AutoField(primary_key=True)
     codigoCuenta = models.CharField(max_length=255, unique=True)
     nombreCuenta = models.CharField(max_length=255)
     naturaleza = models.CharField(max_length=255)
-
-#Tabla para relacionar las cuentas de mayor con las cuentas de detalle
-class RelacionCuentas(models.Model):
-    codigoRelacion = models.AutoField(primary_key=True)
-    codigoCuentaMayor = models.CharField(max_length=255)
-    codigoCuentaDetalle = models.CharField(max_length=255)
 
 class Transaccion(models.Model):
     codigoTransaccion = models.AutoField(primary_key=True)
@@ -30,4 +25,3 @@ class Transaccion(models.Model):
     nombreCuenta = models.CharField(max_length=255)
     Cargo = models.FloatField()
     Abono = models.FloatField()
-
