@@ -47,9 +47,8 @@ def login_view(request):
     else:
         return render(request, 'login.html')
 
-""" @login_required
+@login_required
 def catalogo_view(request):
-    cuentasMayor = CuentasMayor.objects.all()
-    catalogos = Catalogo.objects.all()
-    return render(request, 'catalogo.html', {'catalogos': catalogos})
- """
+    cuentasMayor = cuentasMayor.objects.all()
+    cuentasDetalle = cuentasDetalle.objects.all()
+    return render(request, 'catalogo.html', {'cuentasMayor': cuentasMayor, 'cuentasDetalle': cuentasDetalle})

@@ -7,12 +7,14 @@ class CuentasMayor(models.Model):
     codigoCuentaMayor = models.AutoField(primary_key=True)
     codigoCuenta = models.CharField(max_length=255, unique=True)
     nombreCuenta = models.CharField(max_length=255)
+    naturaleza = models.CharField(max_length=255)
 
 #Tabla para alamacenar las cuentas de detalle de cada cuenta mayor
 class CuentasDetalle(models.Model):
     codigoCuentaDetalle = models.AutoField(primary_key=True)
-    codigoCuenta = models.CharField(max_length=255)
+    codigoCuenta = models.CharField(max_length=255, unique=True)
     nombreCuenta = models.CharField(max_length=255)
+    naturaleza = models.CharField(max_length=255)
 
 #Tabla para relacionar las cuentas de mayor con las cuentas de detalle
 class RelacionCuentas(models.Model):
