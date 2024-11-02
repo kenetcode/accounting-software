@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Control de Costos - Software Contable TAS</title>
+    <link rel="stylesheet" href="../static/css/sidebar.css">
+    <link rel="stylesheet" href="../static/css/controlCostos.css">
+</head>
+<body>
+    <!-- Sidebar -->
+    <section id="sidebar">
+        <div class="toggle-button">
+            <span class="activate">&#9776;</span>
+            <span class="deactivate">&#9668;</span>
+        </div>
+        <ul>
+            <li><img src="../static/img/logo.webp" alt="logo"></li>
+            <li class="home-button">Home</li>
+            <li class="transacciones-button">Transacciones</li>
+            <li class="costos-button"style="display: none;">Control de Costos</li>
+            <li class="catalogo-button">Catalogo de Cuentas</li>
+            <li class="libro-button">Libro Mayor</li>
+            <li class="estados-button">Estados Financieros</li>
+            <li class="cierre-button">Cierre Contable</li>
+            <li class="cerrar-sesion">Cerrar Sesion</li>
+        </ul>
+    </section>
+
+    <!-- Contenido Principal -->
+    <main class="main-content">
+        <header class="container-header">
+            <div class="content-header">
+                <h1 class="title">Software Contable TAS</h1>
+            </div>
+        </header>
+
+        <div class="control-costos-container">
+            <h2 class="section-title">Control de Costos</h2>
+
+            <div class="table-container">
+                <div class="contenedor-boton">
+                    <button class="one-btn" onclick="abrirModal()">Agregar Empleado</button>
+                </div>
+                <table class="control-costos-table">
+                    <thead>
+                        <tr>
+                             <th>Empleado</th>
+                            <th>Puesto</th>
+                            <th>Pago Diario</th>
+                            <th>Septimo Día</th>
+                            <th>Vacaciones</th>
+                            <th>Salario Total</th>
+                            <th>Aguinaldo</th>
+                            <th>ISSS</th>
+                            <th>AFP</th>
+                            <th>INCAFF</th>
+                            <th>Costo Real</th>
+                            <th>Acción</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td><button class="two-btn">Eliminar</button></td>
+                        </tr>
+                        <!-- Filas adicionales según sea necesario -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+    <!-- Modal de Registrar Empleado -->
+    <div id="modalEmpleado" class="modal">
+        <div class="modal-contenido">
+            <h2>Registrar Empleado</h2>
+            <form>
+                <label for="nombreEmpleado">Nombre del empleado:</label>
+                <input type="text" id="nombreEmpleado" placeholder="Nombre">
+
+                <label for="puestoTrabajo">Puesto de trabajo:</label>
+                <input type="text" id="puestoTrabajo" placeholder="Puesto">
+
+                <label for="salario">Salario:</label>
+                <input type="text" id="salario" placeholder="Salario">
+
+                <div class="modal-botones">
+                    <button type="button" onclick="cerrarModal()" class="btn-cancelar">Cerrar</button>
+                    <button type="submit" class="btn-guardar">Guardar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="../static/js/sidebar.js"></script>
+    <script src="../static/js/controlCostos.js"></script>
+</body>
+</html>

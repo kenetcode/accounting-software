@@ -1,0 +1,250 @@
+@import url('https://fonts.googleapis.com/css2?family=Assistant:wght@200..800&family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap');
+
+:root {
+    --primary-color: #9f79ff;
+    --secondary-color: #510585;
+    --tertiary-color: #3b00b3;
+    --quarter-color: #ff8c42;
+    --white: #fff;
+    --bg-color: #f0f0f0;
+    --primary-font: "Assistant", sans-serif;
+    --secondary-font: "Roboto Condensed", sans-serif;
+    --shadow: 0 0 100px rgba(69, 3, 131, 0.404);
+}
+
+/* Reset básico */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--primary-font);
+    background-color: var(--bg-color);
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+/* Header */
+
+.title {
+    color: var(--white);
+    font-family: var(--secondary-font);
+    font-size: clamp(1.25rem, 2vw + 0.5rem, 1.5rem);
+}
+
+.control-costos-container {
+    padding: clamp(1rem, 3vw, 2rem);
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.section-title {
+    color: var(--secondary-color);
+    margin-bottom: 1.5rem;
+    font-family: var(--secondary-font);
+    font-size: clamp(1.5rem, 2.5vw, 2rem);
+}
+
+/* Tabla */
+.table-container {
+    background-color: var(--white);
+    border-radius: 8px;
+    padding: clamp(1rem, 2vw, 1.25rem);
+    box-shadow: var(--shadow);
+    width: min(100%, 1000px);
+    height: 50vh;
+    /* max-height: 80vh; */
+    margin: 2rem auto;
+    overflow-x: auto;
+}
+
+.control-costos-table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 600px; /* Asegura que la tabla no se comprima demasiado */
+}
+
+.control-costos-table th,
+.control-costos-table td {
+    padding: 0.75rem;
+    text-align: left;
+    border: 1px solid #ddd;
+}
+
+.control-costos-table th {
+    background-color: var(--secondary-color);
+    color: var(--white);
+    font-family: var(--secondary-font);
+    position: sticky;
+    top: 0;
+}
+
+.control-costos-table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.control-costos-table tr:hover {
+    background-color: #f5f5f5;
+}
+
+.one-btn {
+    font-size: 0.9rem;
+    padding: 0.7rem 1rem;
+    color: var(--white);
+    background-color: var(--primary-color);
+    border: var(--tertiary-color);
+    border-radius: 4px;
+    cursor: pointer;
+    margin-bottom: 1rem;
+}
+.two-btn {
+    font-size: 0.9rem;
+    padding: 0.4rem 0.5rem;
+    color: var(--white);
+    background-color: var(--primary-color);
+    border: var(--tertiary-color);
+    border-radius: 4px;
+    cursor: pointer;
+    margin-bottom: 1rem;
+}
+
+.contenedor-boton{
+    display: flex;
+    width: 100%;
+    justify-content: flex-end;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+    .table-container {
+        margin: 1rem auto;
+        padding: 1rem;
+    }
+}
+
+@media (max-width: 768px) {
+    #sidebar {
+        width: 0;
+        overflow: hidden;
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 100vh;
+        z-index: 1000;
+        transition: width 0.3s ease;
+    }
+    
+    #sidebar.active {
+        width: min(80%, 250px);
+    }
+    
+    .main-content {
+        margin-left: 0;
+        width: 100%;
+        transition: margin 0.3s ease;
+    }
+    
+    .main-content.sidebar-active {
+        margin-left: min(80%, 250px);
+    }
+}
+
+@media (max-width: 480px) {
+    .content-header {
+        padding: 0.5rem;
+    }
+    
+    .libro-mayor-container {
+        padding: 0.5rem;
+    }
+    
+    .table-container {
+        padding: 0.5rem;
+        margin: 0.5rem auto;
+    }
+}
+
+/* Utilidades para scroll horizontal en móviles */
+.table-container::-webkit-scrollbar {
+    height: 6px;
+}
+
+.table-container::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+.table-container::-webkit-scrollbar-thumb {
+    background: var(--secondary-color);
+    border-radius: 3px;
+}
+
+/* Estilos del modal (oculto inicialmente) */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal-contenido {
+    background-color: #fff;
+    margin: 10% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 400px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    text-align: left;
+}
+
+.modal-contenido h2 {
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+    color: #333;
+}
+
+.modal-contenido label {
+    font-size: 0.9rem;
+    color: #333;
+    display: block;
+    margin: 10px 0 5px;
+}
+
+.modal-contenido input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.modal-botones {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+.btn-cancelar,
+.btn-guardar {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.btn-cancelar {
+    background-color: var(--primary-color);
+    color: #fff;
+}
+
+.btn-guardar {
+    background-color: var(--secondary-color);
+    color: #fff;
+}
