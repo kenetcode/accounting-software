@@ -1,11 +1,92 @@
+<!-- index.html -->
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aqui va la vista de cierre Contable</title>
+    <title>Cierre Contable - TAS</title>
+    <link rel="stylesheet" href="../static/css/sidebar.css">
+    <link rel="stylesheet" href="../static/css/cierreContable.css">
 </head>
+
 <body>
-    <h1>Aqui va la vista de cierre Contable</h1>
+    <!-- Sidebar -->
+    <section id="sidebar">
+        <div class="toggle-button">
+            <span class="activate">&#9776;</span>
+            <span class="deactivate">&#9668;</span>
+        </div>
+        <ul>
+            <li><img src="../static/img/logo.webp" alt="logo"></li>
+            <li class="home-button">Home</li>
+            <li class="transacciones-button">Transacciones</li>
+            <li class="costos-button">Control de Costos</li>
+            <li class="catalogo-button">Catalogo de Cuentas</li>
+            <li class="libro-button">Libro Mayor</li>
+            <li class="estados-button" style="display: none;">Estados Financieros</li>
+            <li class="cierre-button">Cierre Contable</li>
+            <li class="cerrar-sesion">Cerrar Sesion</li>
+        </ul>
+    </section>
+    <div class="container-header">
+        <div class="content-header">
+            <h1 class="title">Software Contable TAS</h1>
+        </div>
+    </div>
+    <main class="main-content">
+        <div class="cierre-contable-container">
+            <h2 class="section-title">Cierre Contable</h2>
+
+            <main class="table-container">
+                <div class="form-group">
+                    <label for="periodo">Período de Cierre</label>
+                    <select id="periodo">
+                        <option value="">Seleccione el período...</option>
+                        <option value="mensual">Mensual</option>
+                        <option value="trimestral">Trimestral</option>
+                        <option value="anual">Anual</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="fecha">Fecha de Cierre</label>
+                    <input type="date" id="fecha">
+                </div>
+
+                <table class="cierre-contable-table">
+                    <thead>
+                        <tr>
+                            <th>Resumen de Cuentas</th>
+                            <th>Valor</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Total Activos</td>
+                            <td id="totalActivos">$0.00</td>
+                        </tr>
+                        <tr>
+                            <td>Total Pasivos</td>
+                            <td id="totalPasivos">$0.00</td>
+                        </tr>
+                        <tr>
+                            <td>Patrimonio Neto</td>
+                            <td id="patrimonio">$0.00</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="buttons">
+                    <button class="btn-primary" onclick="iniciarCierre()">Iniciar Cierre</button>
+                    <button class="btn-warning" onclick="verificarBalance()">Verificar Balance</button>
+                    <button class="btn-secondary" onclick="cancelar()">Cancelar</button>
+                </div>
+            </main>
+        </div>
+    </main>
+    <script src="../static/js/sidebar.js"></script>
+    <script src="../static/js/cierreContable.js"></script>
 </body>
+
 </html>

@@ -32,4 +32,8 @@ urlpatterns = [
     path('balancedecomprobacion/', include('accounting.urls')),
     path('libromayor/', include('accounting.urls')),
     path('cierrecontable/', include('accounting.urls')),
+    #Path que añadio Benitez
+    path('estadoderesultados/', include('accounting.urls')),
+    path('estadodecapital/', include('accounting.urls')),
+    path('balancegeneral/', include('accounting.urls')),
 ]

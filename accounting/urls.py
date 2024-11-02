@@ -16,6 +16,9 @@ urlpatterns = [
     #-------------------------------------------------------------------------------------------------------------
     path('estadosfinancieros/', views.estadosFinancieros_view, name='estadosFinancieros'),
     path('balancedecomprobacion/', views.balanceDeComprobacion_view, name='balanceDeComprobacion'),
+    path('estadoderesultados/', views.estadoDeResultados_view, name='estadoDeResultados'),
+    path('estadodecapital/', views.estadoDeCapital_view, name='estadoDeCapital'),
+    path('balancegeneral/', views.balanceGeneral_view, name='balanceGeneral'),
     #-------------------------------------------------------------------------------------------------------------
     path('libromayor/', views.libroMayor_view, name='libroMayor'),
     path('cierrecontable/', views.cierreContable_view, name='cierreContable'),
