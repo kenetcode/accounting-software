@@ -48,9 +48,12 @@ def login_view(request):
 
 @login_required
 def catalogo_view(request):
+    """ cuentasMayor = CuentasMayor.objects.all()
+    cuentasDetalle = CuentasDetalle.objects.all() """
     cuentasMayor = CuentasMayor.objects.all()
-    cuentasDetalle = CuentasDetalle.objects.all()
-    return render(request, 'catalogo.html', {'cuentasMayor': cuentasMayor, 'cuentasDetalle': cuentasDetalle})
+    for cuenta in cuentasMayor:
+        cuenta.cuentas_detalle = CuentasDetalle.objects.filter(codigoCuentaMayor_id=cuenta.codigoCuentaMayor)
+    return render(request, 'catalogo.html', {'cuentas': cuentasMayor})
 
 def controlCostos_view(request):
     return render(request, 'controlCostos.html')

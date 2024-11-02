@@ -54,21 +54,28 @@
                 </thead>
                 <tbody>
                     <!-- Aquí se agregan los datos de las cuentas de la tabla catalogo de la DB -->
-                    {% for cuentas_mayor in cuentasMayor %}
+                    {% for cuentasM in cuentas %}
                     <tr>
-                        <td>{{ cuentas_mayor.codigoCuenta }}</td>
-                        <td>{{ cuentas_mayor.nombreCuenta }}</td>
-                        <td>{{ cuentas_mayor.naturaleza }}</td>
+                        <td>{{ cuentasM.codigoCuenta }}</td>
+                        <td>{{ cuentasM.nombreCuenta }}</td>
+                        <td>{{ cuentasM.naturaleza }}</td>
                     </tr>
+                        {% for detalle in cuentasM.cuentas_detalle %}
+                        <tr>
+                            <td>{{ detalle.codigoCuenta }}</td>
+                            <td>{{ detalle.nombreCuenta }}</td>
+                            <td>{{ detalle.naturaleza }}</td>
+                        </tr>
+                        {% endfor %}
                     {% endfor %}
 
-                    {% for cuentas_detalle in cuentasDetalle %}
+                    <!-- {% for cuentas_detalle in cuentasDetalle %}
                     <tr>
                         <td>{{ cuentas_detalle.codigoCuenta }}</td>
                         <td>{{ cuentas_detalle.nombreCuenta }}</td>
                         <td>{{ cuentas_detalle.naturaleza }}</td>
                     </tr>
-                    {% endfor %}
+                    {% endfor %} -->
                 </tbody>
             </table>
         </div>
