@@ -28,6 +28,7 @@ urlpatterns = [
     path('catalogo/', include('accounting.urls')),
     path('controldecostos/', include('accounting.urls')),
     path('transacciones/', include('accounting.urls')),
+    path('cuentas/<int:id>/', include('accounting.urls')),
     path('estadosfinancieros/', include('accounting.urls')),
     path('balancedecomprobacion/', include('accounting.urls')),
     path('libromayor/', include('accounting.urls')),

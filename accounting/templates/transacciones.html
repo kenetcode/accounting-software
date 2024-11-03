@@ -42,9 +42,18 @@
             </div>
             <div class="option"><label>Cuenta:</label>
                 <select id="cuentas">
+                    <!-- <option id="slc-cuenta" value="{{ catalogo.codigoCuenta }}">{{ catalogo.codigoCuenta }} - {{ catalogo.nombreCuenta}}</option> -->
                     <option value="" selected disabled>Selecciona una opción</option>
                     {% for catalogo in catalogos %}
-                    <option id="slc-cuenta" value="{{ catalogo.codigo }}">{{ catalogo.codigo }} - {{ catalogo.cuenta }}</option>
+                    {% if catalogo.cuentas_detalle %}
+                        <option id="" value="{{ catalogo.codigoCuenta }}" disabled>{{ catalogo.codigoCuenta }} - {{ catalogo.nombreCuenta}}</option>
+                        {% for cuenta in catalogo.cuentas_detalle %}
+                        <option id="slc-cuenta" value="{{ cuenta.codigoCuenta }}">{{ cuenta.codigoCuenta }} - {{ cuenta.nombreCuenta }}</option>
+                        {% endfor %}
+                    {% endif %}
+                    {% if not catalogo.cuentas_detalle %}
+                        <option  id="slc-cuenta" value="{{ catalogo.codigoCuenta }}">{{ catalogo.codigoCuenta }} - {{ catalogo.nombreCuenta }}</option>
+                    {% endif %}
                     {% endfor %}
                 </select>
             </div>
@@ -54,14 +63,14 @@
             <div class="option"><label>Abono:</label>
                 <input type="number" class="small-input" id="abono">
             </div>
-            <div class="option">
+            <div class="option-btn">
                 <button type="button" class="cuenta-btn">Agregar</button>
                 <button type="button" class="regresar-btn">Regresar</button>
             </div>
         </section>
         <section id="alert">
             <div id="data">
-                <p id="alert-txt">Por favor, llene todos los campos</p>
+                <p id="alert-txt"></p>
                 <button type="button" id="alert-btn">Ok</button>
             </div>
         </section>
@@ -81,14 +90,17 @@
             <tbody id="tbody">
             
             </tbody>
-            <tclose id="total">
+            <tfoot id="total">
                 <tr>
                     <td colspan="3">TOTAL:</td>
                     <td id="total-cargo">$0</td>
                     <td id="total-abono">$0</td>
                 </tr>
-            </tclose>
+            </tfoot>
         </table>
+        <div class="finalizarTransaccion">
+            <button id="finalizarTransaccion-btn"> Finalizar Transacción</button>
+        </div>
     </main>
     <script src="../static/js/sidebar.js"></script>
     <script src="../static/js/transacciones.js"></script>

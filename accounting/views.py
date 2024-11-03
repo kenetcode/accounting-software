@@ -59,7 +59,42 @@ def controlCostos_view(request):
     return render(request, 'controlCostos.html')
 
 def transacciones_view(request):
-    return render(request,'transacciones.html')
+    cuentasMayor = CuentasMayor.objects.all()
+    for cuenta in cuentasMayor:
+        cuenta.cuentas_detalle = CuentasDetalle.objects.filter(codigoCuentaMayor_id=cuenta.codigoCuentaMayor)
+    return render(request,'transacciones.html', {'catalogos': cuentasMayor})
+
+def cuentas_view(request, id):
+    try:
+        """ catalogo_data = {
+            "codigo": catalogo.codigo,
+            "cuenta": catalogo.cuenta
+        } """
+        # Obtén el objeto Catalogo específico usando el `id`
+        if(CuentasDetalle.objects.filter(codigoCuenta=id).exists()):
+            cuentaDetalle = CuentasDetalle.objects.get(codigoCuenta=id)
+            cuentaMayor = CuentasMayor.objects.get(codigoCuentaMayor=cuentaDetalle.codigoCuentaMayor_id)
+            catalogo_data = {
+                "codigo": cuentaMayor.codigoCuenta,
+                "cuenta": cuentaMayor.nombreCuenta,
+                "cuenta_detalle": {
+                    "codigo": cuentaDetalle.codigoCuenta,
+                    "cuenta": cuentaDetalle.nombreCuenta,
+                }
+            }
+        else:
+            cuentaMayor = CuentasMayor.objects.get(codigoCuenta=id)
+            catalogo_data = {
+                "codigo": cuentaMayor.codigoCuenta,
+                "cuenta": cuentaMayor.nombreCuenta,
+                "cuenta_detalle": {
+                    "codigo": "",
+                    "cuenta": "",
+                }
+            }
+        return JsonResponse(catalogo_data)
+    except CuentasMayor.DoesNotExist:
+        return JsonResponse({"error": "Catalogo no encontrado"}, status=404)
 
 #Aqui va la vista de estados financieros, y las vistas que van dentro de esta.
 #-------------------------------------------------------------------------------------------------------------

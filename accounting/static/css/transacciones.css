@@ -134,8 +134,15 @@ label {
     width: 300px;
 }
 
-.option button{
-    align-self: flex-end;
+.option-btn {
+    display: flex;
+    justify-content: center;
+    align-self: center;
+    margin-top: 20px;
+    gap: 10px;
+}
+
+.option-btn button{
     padding: 8px 16px;
     background-color: var(--secondary-color);
     color: var(--white);
@@ -146,7 +153,7 @@ label {
     font-weight: bold;
 }
 
-.option button:hover{
+.option-btn button:hover{
     background-color: var(--quarter-color);
 }
 
@@ -237,3 +244,28 @@ input[type=number]::-webkit-inner-spin-button {
     background-color: var(--quarter-color);
 }
 
+.finalizarTransaccion{
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+    margin-top: 20px;
+}
+
+#finalizarTransaccion-btn{
+    display: flex;
+    justify-content: center;
+    align-self: center;
+    padding: 8px 16px;
+    background-color: var(--secondary-color);
+    color: var(--white);
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-family: var(--secondary-font);
+    font-weight: bold;
+}
+
+#finalizarTransaccion-btn:hover{
+    background-color: var(--quarter-color);
+}

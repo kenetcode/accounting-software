@@ -12,6 +12,7 @@ urlpatterns = [
     path('catalogo/', views.catalogo_view, name='catalogo'),
     path('controldecostos/', views.controlCostos_view, name='controlCostos'),
     path('transacciones/', views.transacciones_view, name='transacciones'),
+    path('cuentas/<int:id>/', views.cuentas_view, name='cuentas'),
     #Aqui van las rutas de las vistas de estados financieros, y las vistas que van dentro de esta.
     #-------------------------------------------------------------------------------------------------------------
     path('estadosfinancieros/', views.estadosFinancieros_view, name='estadosFinancieros'),
