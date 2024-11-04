@@ -77,8 +77,6 @@ body {
     background-color: var(--secondary-color);
     color: var(--white);
     font-family: var(--secondary-font);
-    position: sticky;
-    top: 0;
 }
 
 .libro-mayor-table tr:nth-child(even) {
