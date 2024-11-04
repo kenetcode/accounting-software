@@ -29,5 +29,6 @@ urlpatterns = [
     path('libromayor/', views.libroMayor_view, name='libroMayor'),
     path('cierrecontable/', views.cierreContable_view, name='cierreContable'),
     path('balancecomprobacion/', views.balance_de_comprobacion_data, name='balanceDeComprobacionData'),
+    path('libromayorget/', views.libro_mayor_data, name='libroMayorData'),
 
 ]

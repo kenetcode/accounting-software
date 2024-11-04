@@ -207,3 +207,16 @@ def balance_de_comprobacion_data(request):
     
     return JsonResponse(data, safe=False)
 
+def libro_mayor_data(request):
+    try:
+        transacciones = (
+            Transaccion.objects.all()
+            .values("codigoCuenta", "nombreCuenta", "fecha", "numeroPartida", "Cargo", "Abono")
+            .order_by("fecha")
+        )
+        data = list(transacciones)
+        return JsonResponse(data, safe=False)
+    except Exception as e:
+        # Imprime el error en la consola y devuelve un JSON de error
+        print("Error:", e)
+        return JsonResponse({"error": "Error al procesar las transacciones"}, status=500)

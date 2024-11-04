@@ -42,4 +42,5 @@ urlpatterns = [
     path('estadodecapital/', include('accounting.urls')),
     path('balancegeneral/', include('accounting.urls')),
     path('balancecomprobacion/', include('accounting.urls')),
+    path('libromayorget/', include('accounting.urls')),
 ]
