@@ -46,7 +46,8 @@
                             <th>Nombre Cuenta</th>
                             <th>Cargo</th>
                             <th>Abono</th>
-                            <th>Saldo</th>
+                            <th>Saldo Deudor</th>
+                            <th>Saldo Acreedor</th>
                         </tr>
                     </thead>
                     <tbody id="tabla-resultados">
@@ -59,6 +60,15 @@
                         </tr>
                         <!-- Filas adicionales según sea necesario -->
                     </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="2">TOTAL:</td>
+                            <td id="total-cargo">$0</td>
+                            <td id="total-abono">$0</td>
+                            <td id="total-deudor">$0</td>
+                            <td id="total-acreedor">$0</td>
+                        </tr>
+                    </tfoot>
                 </table>
             </div>
         </div>
