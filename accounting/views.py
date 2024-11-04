@@ -191,7 +191,7 @@ from django.db.models import Sum, Case, When, F
 @login_required
 def balance_de_comprobacion_data(request):
     transacciones = (
-        Transaccion.objects.values("codigoCuenta", "nombreCuenta")
+        BalanceDeComprobacion.objects.values("codigoCuenta", "nombreCuenta")
         .annotate(
             total_cargo=Sum("Cargo"),
             total_abono=Sum("Abono"),
