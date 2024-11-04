@@ -163,3 +163,26 @@ def cierreContable_view(request):
 
 #Aqui van los objetos de las tablas de las cuentas de mayor y detalle, se crean con el script crear_cuentas.py
 
+#Pruebas
+
+from django.db.models import Sum, Case, When, F
+
+@login_required
+def balance_de_comprobacion_data(request):
+    transacciones = (
+        Transaccion.objects.values("codigoCuenta", "nombreCuenta")
+        .annotate(
+            total_cargo=Sum("Cargo"),
+            total_abono=Sum("Abono"),
+            saldo=Case(
+                When(total_abono__gt=F('total_cargo'), then=F('total_abono') - F('total_cargo')),
+                default=F('total_cargo') - F('total_abono')
+            )
+        )
+        .order_by("codigoCuenta")
+    )
+
+    data = list(transacciones)
+    
+    return JsonResponse(data, safe=False)
+
