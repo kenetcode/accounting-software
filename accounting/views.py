@@ -66,6 +66,7 @@ def transacciones_view(request):
         cuenta.cuentas_detalle = CuentasDetalle.objects.filter(codigoCuentaMayor_id=cuenta.codigoCuentaMayor)
     return render(request,'transacciones.html', {'catalogos': cuentasMayor})
 
+# SIRVE PARA RECUPERAR EL CATALOGO DE CUENTAS
 def cuentas_view(request, id):
     try:
         """ catalogo_data = {
@@ -98,6 +99,7 @@ def cuentas_view(request, id):
     except CuentasMayor.DoesNotExist:
         return JsonResponse({"error": "Catalogo no encontrado"}, status=404)
 
+# SIRVE PARA CALCULAR EL NUMERO DE PARTIDA
 def obtenerNumeroTransaccion_view(request, year, month):
     if(Transaccion.objects.filter(fecha__year=year, fecha__month=month).exists()):
         transacciones = Transaccion.objects.filter(fecha__year=year, fecha__month=month)
@@ -112,6 +114,7 @@ def obtenerNumeroTransaccion_view(request, year, month):
         print(numero)
     return JsonResponse(numero)
 
+# SIRVE PARA REGISTRAR UNA TRANSACCION
 def registrarTransaccion_view(request):
     if request.method == 'POST':
         try:

@@ -28,8 +28,10 @@ urlpatterns = [
     path('catalogo/', include('accounting.urls')),
     path('controldecostos/', include('accounting.urls')),
     path('transacciones/', include('accounting.urls')),
+    #ENDPOINTS HECHOS POR CARLOS RAUDA
     path('cuentas/<int:id>/', include('accounting.urls')),
     path('transacciones/<int:year>/<int:month>/', include('accounting.urls')),
+    #ENDPOINTS HECHOS POR CARLOS RAUDA
     path('registrartransacciones/', include('accounting.urls')),
     path('estadosfinancieros/', include('accounting.urls')),
     path('balancedecomprobacion/', include('accounting.urls')),
