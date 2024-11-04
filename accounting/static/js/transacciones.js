@@ -12,9 +12,14 @@ const totalAbono = document.getElementById('total-abono');
 const alert = document.querySelector('#alert');
 const btnAlert = document.querySelector('#alert-btn');
 const alertText = document.querySelector('#alert-txt');
+const numeroPartida = document.querySelector('.numero-partida');
 let tlCargos = 0;
 let tlAbonos = 0;
 let opcionSeleccionada = '';
+
+fecha.addEventListener('change', async function () {
+    numeroPartida.textContent = `Partida No. ${await getNumeroTransaccion()}`;
+});
 
 btnAdd.addEventListener('click', function () {
     if(fecha.value == ''){
@@ -224,4 +229,5 @@ limpiarTodo = () => {
     table.innerHTML = '';
     fecha.value = '';
     fecha.disabled = false;
+    numeroPartida.textContent = '';
 }
