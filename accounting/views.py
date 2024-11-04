@@ -5,7 +5,9 @@ from django.http import JsonResponse, HttpResponse
 from django.shortcuts import get_object_or_404, render, redirect
 #from .models import //Aqui van los modelos a importar # importamos el modelo Usuario de la aplicacion accounting 
 from django.contrib.auth.decorators import login_required 
-from .models import CuentasMayor, CuentasDetalle
+from .models import CuentasMayor, CuentasDetalle, Transaccion
+from django.views.decorators.csrf import csrf_exempt
+import json
 # Create your views here.
 # Create your views here.
 
@@ -95,6 +97,39 @@ def cuentas_view(request, id):
         return JsonResponse(catalogo_data)
     except CuentasMayor.DoesNotExist:
         return JsonResponse({"error": "Catalogo no encontrado"}, status=404)
+
+def obtenerNumeroTransaccion_view(request, year, month):
+    if(Transaccion.objects.filter(fecha__year=year, fecha__month=month).exists()):
+        transacciones = Transaccion.objects.filter(fecha__year=year, fecha__month=month)
+        ultima_transaccion = transacciones.last()
+        numero = {
+            "numero": ultima_transaccion.numeroPartida + 1
+        }
+    else:
+        numero = {
+            "numero": 1
+        }
+        print(numero)
+    return JsonResponse(numero)
+
+def registrarTransaccion_view(request):
+    if request.method == 'POST':
+        try:
+            datos = json.loads(request.body)
+            transaccion = Transaccion(
+                numeroPartida=datos['numero_partida'],
+                fecha=datos['fecha'],
+                codigoCuenta=datos['codigo'],
+                nombreCuenta=datos['cuenta'],
+                Cargo=float(datos['cargo']),
+                Abono=float(datos['abono'])
+            )
+            transaccion.save()
+            return JsonResponse({"mensaje": "Datos recibidos correctamente"})
+        except Exception as e:
+            return JsonResponse({'success': False, 'message': str(e)})
+    else:
+        return JsonResponse({"error": "Método no permitido"}, status=405)
 
 #Aqui va la vista de estados financieros, y las vistas que van dentro de esta.
 #-------------------------------------------------------------------------------------------------------------

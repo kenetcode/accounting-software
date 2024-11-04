@@ -11,12 +11,18 @@ const totalCargo = document.getElementById('total-cargo');
 const totalAbono = document.getElementById('total-abono');
 const alert = document.querySelector('#alert');
 const btnAlert = document.querySelector('#alert-btn');
+const alertText = document.querySelector('#alert-txt');
 let tlCargos = 0;
 let tlAbonos = 0;
 let opcionSeleccionada = '';
 
 btnAdd.addEventListener('click', function () {
-    form.classList.toggle('active');
+    if(fecha.value == ''){
+        alert.classList.toggle('actived');
+        alertText.textContent = 'Por favor, llene la fecha';
+    }else{
+        form.classList.toggle('active');
+    }
 });
 
 btnAlert.addEventListener('click', function () {
@@ -42,8 +48,7 @@ const getCuenta = async () => {
 btnCuenta.addEventListener('click', async function () {
     opcionSeleccionada = cuenta.options[cuenta.selectedIndex].value;
     const rows = table.getElementsByTagName('tr');
-    const alertText = document.querySelector('#alert-txt');
-    if (fecha.value == '' || opcionSeleccionada == '' || (cargo.value == '' && abono.value == '')) {
+    if (opcionSeleccionada == '' || (cargo.value == '' && abono.value == '')) {
         alert.classList.toggle('actived');
         alertText.textContent = 'Por favor, llene todos los campos';
     } else if (cargo.value !== '' && abono.value !== '') {
@@ -62,6 +67,7 @@ btnCuenta.addEventListener('click', async function () {
     } else {
         const data = await getCuenta();
         form.classList.toggle('active');
+        fecha.disabled = 'true';
         insertarEnTabla(data);
         limpiarCampos();
     }
@@ -123,12 +129,99 @@ function insertarEnTabla(data) {
 }
 
 limpiarCampos = () => {
-    fecha.value = '';
     cuenta.selectedIndex = 0;
     cargo.value = '';
     abono.value = '';
 }
 
+guardarTransacción = async () =>{
+    const rows = table.getElementsByTagName('tr');
+    if(tlCargos !== tlAbonos){
+        alert.classList.toggle('actived');
+        alertText.textContent = 'Los cargos y abonos no coinciden';
+        console.log(`error`);
+    }else if(tlAbonos === 0 && tlCargos === 0){
+        alert.classList.toggle('actived');
+        alertText.textContent = `No se ha introducido ninguna cuenta`;
+    }else if(fecha.value == ''){
+        alert.classList.toggle('actived');
+        alertText.textContent = 'Por favor, llene la fecha';
+    } else{
+        let numeroPartida = await getNumeroTransaccion();
+        console.log(numeroPartida);
+        for (let i = 0; i < rows.length; i++) {
+            const cols = rows[i].getElementsByTagName('td');
+            if(cols[1].textContent.length < 5){
+                const obj = {
+                    numero_partida: numeroPartida,
+                    fecha: cols[0].textContent,
+                    codigo: cols[1].textContent,
+                    cuenta: cols[2].textContent,
+                    cargo: parseFloat((cols[3].textContent == '') ? 0 : cols[3].textContent),
+                    abono: parseFloat((cols[4].textContent == '')? 0 : cols[4].textContent)
+                }
+                registrarTransaccion(obj);
+            }
+        } 
+        limpiarTodo();
+    }
+    console.log(data);
+}
+
+getNumeroTransaccion = async () => {
+    const fechaObj = new Date(fecha.value);
+    console.log(fechaObj);
+    const endpoint = `/transacciones/${fechaObj.getFullYear()}/${fechaObj.getMonth()+1}`;
+    try {
+        const response = await fetch(endpoint);
+        const data = await response.json();
+        return data.numero;
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+registrarTransaccion = async (data) => {
+    const endpoint = `/registrartransacciones/`;
+    try {
+        const response = await fetch(endpoint, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': getCookie('csrftoken')
+            },
+            body: JSON.stringify(data)
+        });
+        const res = await response.json();
+        console.log(res);
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
 
 
 
+limpiarTodo = () => {
+    tlCargos = 0;
+    tlAbonos = 0;
+    totalCargo.textContent = `$${tlCargos}`;
+    totalAbono.textContent = `$${tlAbonos}`;
+    table.innerHTML = '';
+    fecha.value = '';
+    fecha.disabled = false;
+}

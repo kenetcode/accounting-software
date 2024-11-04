@@ -37,9 +37,6 @@
     <!-- Sidebar Fin -->
     <form id="form">
         <section class="form-row">
-            <div class="option"><label>Fecha:</label>
-                <input type="date" id="fecha" name="fecha">
-            </div>
             <div class="option"><label>Cuenta:</label>
                 <select id="cuentas">
                     <!-- <option id="slc-cuenta" value="{{ catalogo.codigoCuenta }}">{{ catalogo.codigoCuenta }} - {{ catalogo.nombreCuenta}}</option> -->
@@ -68,38 +65,46 @@
                 <button type="button" class="regresar-btn">Regresar</button>
             </div>
         </section>
-        <section id="alert">
-            <div id="data">
-                <p id="alert-txt"></p>
-                <button type="button" id="alert-btn">Ok</button>
-            </div>
-        </section>
     </form>
+    <section id="alert">
+        <div id="data">
+            <p id="alert-txt"></p>
+            <button type="button" id="alert-btn">Ok</button>
+        </div>
+    </section>
     <main class="container">
-        <button type="button" class="add-btn">Agregar Cuenta</button>
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>Fecha</th>
-                    <th>Código</th>
-                    <th>Descripción</th>
-                    <th>Cargo</th>
-                    <th>Abono</th>
-                </tr>
-            </thead>
-            <tbody id="tbody">
-            
-            </tbody>
-            <tfoot id="total">
-                <tr>
-                    <td colspan="3">TOTAL:</td>
-                    <td id="total-cargo">$0</td>
-                    <td id="total-abono">$0</td>
-                </tr>
-            </tfoot>
-        </table>
+        <div class="header-table">
+            <button type="button" class="add-btn">Agregar Cuenta</button>
+            <div class="date"><label>Fecha:</label>
+                <input type="date" id="fecha" name="fecha">
+            </div>
+        </div>
+        <div class="table-container">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Fecha</th>
+                        <th>Código</th>
+                        <th>Descripción</th>
+                        <th>Cargo</th>
+                        <th>Abono</th>
+                    </tr>
+                </thead>
+                <tbody id="tbody">
+                
+                </tbody>
+                <tfoot id="total">
+                    <tr>
+                        <td colspan="3">TOTAL:</td>
+                        <td id="total-cargo">$0</td>
+                        <td id="total-abono">$0</td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
         <div class="finalizarTransaccion">
-            <button id="finalizarTransaccion-btn"> Finalizar Transacción</button>
+            <button onclick="limpiarTodo()">Cancelar Transacción</button>
+            <button id="finalizarTransaccion-btn" onclick="guardarTransacción()"> Guardar Transacción</button>
         </div>
     </main>
     <script src="../static/js/sidebar.js"></script>
