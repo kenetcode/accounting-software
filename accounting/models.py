@@ -25,3 +25,12 @@ class Transaccion(models.Model):
     nombreCuenta = models.CharField(max_length=255)
     Cargo = models.FloatField()
     Abono = models.FloatField()
+
+class BalanceDeComprobacion(models.Model):
+    codigoTransaccion = models.AutoField(primary_key=True)
+    numeroPartida = models.IntegerField()
+    fecha = models.DateField()
+    codigoCuenta = models.CharField(max_length=255)
+    nombreCuenta = models.CharField(max_length=255)
+    Cargo = models.FloatField()
+    Abono = models.FloatField()

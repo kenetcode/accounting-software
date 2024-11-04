@@ -16,6 +16,7 @@ urlpatterns = [
     #ENDPOINTS HECHOS POR CARLOS RAUDA
     path('transacciones/<int:year>/<int:month>/', views.obtenerNumeroTransaccion_view, name='obtenerNumeroTransaccion'),
     path('registrartransacciones/', views.registrarTransaccion_view, name='registrarTransaccion'),
+    path('registrarOtraTabla/', views.registrarEnBalanceDeComprobacion_view, name='registrarEnBalanceDeComprobacion'),
     #ENDPOINTS HECHOS POR CARLOS RAUDA
     #Aqui van las rutas de las vistas de estados financieros, y las vistas que van dentro de esta.
     #-------------------------------------------------------------------------------------------------------------

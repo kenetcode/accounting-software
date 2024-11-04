@@ -5,7 +5,7 @@ from django.http import JsonResponse, HttpResponse
 from django.shortcuts import get_object_or_404, render, redirect
 #from .models import //Aqui van los modelos a importar # importamos el modelo Usuario de la aplicacion accounting 
 from django.contrib.auth.decorators import login_required 
-from .models import CuentasMayor, CuentasDetalle, Transaccion
+from .models import CuentasMayor, CuentasDetalle, Transaccion, BalanceDeComprobacion
 from django.views.decorators.csrf import csrf_exempt
 import json
 # Create your views here.
@@ -129,6 +129,27 @@ def registrarTransaccion_view(request):
             )
             transaccion.save()
             return JsonResponse({"mensaje": "Datos recibidos correctamente"})
+        except Exception as e:
+            return JsonResponse({'success': False, 'message': str(e)})
+    else:
+        return JsonResponse({"error": "Método no permitido"}, status=405)
+
+# SIRVE PARA REGISTRAR UNA TRANSACCION EN BALANCE DE COMPROBACION
+@csrf_exempt
+def registrarEnBalanceDeComprobacion_view(request):
+    if request.method == 'POST':
+        try:
+            datos = json.loads(request.body)
+            balance = BalanceDeComprobacion(
+                numeroPartida=datos['numero_partida'],
+                fecha=datos['fecha'],
+                codigoCuenta=datos['codigo'],
+                nombreCuenta=datos['cuenta'],
+                Cargo=float(datos['cargo']),
+                Abono=float(datos['abono'])
+            )
+            balance.save()
+            return JsonResponse({"mensaje": "Datos registrados en Balance de Comprobacion correctamente"})
         except Exception as e:
             return JsonResponse({'success': False, 'message': str(e)})
     else:

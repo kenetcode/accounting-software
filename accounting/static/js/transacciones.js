@@ -112,8 +112,8 @@ function insertarEnTabla(data) {
                     <td>${fecha.value}</td>
                     <td>${data.cuenta_detalle.codigo}</td>
                     <td>${data.cuenta_detalle.cuenta}</td>
-                    <td></td>
-                    <td></td>
+                    <td>${cargo.value}</td>
+                    <td>${abono.value}</td>
                 </tr>
             `;
     }else{
@@ -167,10 +167,41 @@ guardarTransacción = async () =>{
                 }
                 registrarTransaccion(obj);
             }
-        } 
+        }
+        // Nuevo bucle para registrar en otra tabla
+        for (let i = 0; i < rows.length; i++) {
+            const cols = rows[i].getElementsByTagName('td');
+            const obj = {
+                numero_partida: numeroPartida,
+                fecha: cols[0].textContent,
+                codigo: cols[1].textContent,
+                cuenta: cols[2].textContent,
+                cargo: parseFloat((cols[3].textContent == '') ? 0 : cols[3].textContent),
+                abono: parseFloat((cols[4].textContent == '')? 0 : cols[4].textContent)
+            }
+            registrarTransaccionesCompletas(obj);
+        }
         limpiarTodo();
     }
     console.log(data);
+}
+
+registrarTransaccionesCompletas = async (data) => {
+    const endpoint = `/registrarOtraTabla/`; // Asegúrate de que este endpoint coincida con la ruta en urls.py
+    try {
+        const response = await fetch(endpoint, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': getCookie('csrftoken')
+            },
+            body: JSON.stringify(data)
+        });
+        const res = await response.json();
+        console.log(res);
+    } catch (error) {
+        console.log(error);
+    }
 }
 
 getNumeroTransaccion = async () => {
