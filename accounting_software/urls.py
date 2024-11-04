@@ -41,6 +41,6 @@ urlpatterns = [
     path('estadoderesultados/', include('accounting.urls')),
     path('estadodecapital/', include('accounting.urls')),
     path('balancegeneral/', include('accounting.urls')),
-    path('balancecomprobacion/', include('accounting.urls')),
-    path('libromayorget/', include('accounting.urls')),
+    path('balancecomprobacion/<int:year>/<int:month>/', include('accounting.urls')),
+    path('libromayorget/<int:year>/<int:month>/', include('accounting.urls')),
 ]

@@ -189,9 +189,11 @@ def cierreContable_view(request):
 from django.db.models import Sum, Case, When, F
 
 @login_required
-def balance_de_comprobacion_data(request):
+def balance_de_comprobacion_data(request, year, month):
     transacciones = (
-        BalanceDeComprobacion.objects.values("codigoCuenta", "nombreCuenta")
+        BalanceDeComprobacion.objects
+        .filter(fecha__year=year, fecha__month=month)
+        .values("codigoCuenta", "nombreCuenta")
         .annotate(
             total_cargo=Sum("Cargo"),
             total_abono=Sum("Abono"),
@@ -204,7 +206,6 @@ def balance_de_comprobacion_data(request):
     )
 
     data = list(transacciones)
-    
     return JsonResponse(data, safe=False)
 
 def libro_mayor_data(request):
@@ -212,7 +213,7 @@ def libro_mayor_data(request):
         transacciones = (
             Transaccion.objects.all()
             .values("codigoCuenta", "nombreCuenta", "fecha", "numeroPartida", "Cargo", "Abono")
-            .order_by("fecha")
+            .order_by("codigoCuenta", "fecha")
         )
         data = list(transacciones)
         return JsonResponse(data, safe=False)
