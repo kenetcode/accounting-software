@@ -34,3 +34,9 @@ class BalanceDeComprobacion(models.Model):
     nombreCuenta = models.CharField(max_length=255)
     Cargo = models.FloatField()
     Abono = models.FloatField()
+
+class Empleado(models.Model):
+    codigoEmpleado = models.AutoField(primary_key=True)
+    nombreEmpleado = models.CharField(max_length=255)
+    puestoEmpleado = models.CharField(max_length=255)
+    salarioDiarioEmpleado = models.FloatField()
