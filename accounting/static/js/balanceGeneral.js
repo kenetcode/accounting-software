@@ -23,7 +23,16 @@ procesarTransacciones = async (anio, mes, utilidad_perdida) => {
         const response = await fetch(`/balancecomprobacion/${anio}/${mes}`);
         const transacciones = await response.json();
         console.log(transacciones);
+        let codigoCuenta = transacciones[0].codigoCuenta;
+        colocarEncabezados(codigoCuenta);
         transacciones.forEach(transaccion => {
+            if(transaccion.codigoCuenta[0] != codigoCuenta[0]){
+                codigoCuenta = transaccion.codigoCuenta;
+                colocarEncabezados(codigoCuenta);
+            }else if(transaccion.codigoCuenta[0] == 2 && transaccion.codigoCuenta[1] != codigoCuenta[1]){
+                codigoCuenta = transaccion.codigoCuenta;
+                colocarEncabezados(codigoCuenta);
+            }
             imprimirTabla(transaccion, utilidad_perdida);
         });
         // En este caso, el endpoint ya devuelve los datos agrupados y con totales
@@ -86,4 +95,44 @@ async function totalTabla() {
     totalCargo.textContent = `$${totalCargos.toFixed(2)}`;
     totalAbono.textContent = `$${totalAbonos.toFixed(2)}`;
 
+}
+
+function colocarEncabezados(codigoCuenta){
+    const tablaResultados = document.getElementById('tabla-resultados');
+    if(codigoCuenta[0] == 1){
+        const fila = document.createElement('tr');
+            fila.innerHTML = `
+            <td colspan="2" style="font-weight: bold; text-align:center;">Activo Corriente</td>
+            <td></td>
+            <td></td>
+            `;
+        tablaResultados.appendChild(fila);
+    }
+    if(codigoCuenta[0] == 2 && codigoCuenta[1] == 1){
+        const fila = document.createElement('tr');
+            fila.innerHTML = `
+            <td colspan="2" style="font-weight: bold; text-align:center;">Pasivo Corriente</td>
+            <td></td>
+            <td></td>
+            `;
+        tablaResultados.appendChild(fila);
+    }
+    if(codigoCuenta[0] == 2 && codigoCuenta[1] == 2){
+        const fila = document.createElement('tr');
+            fila.innerHTML = `
+            <td colspan="2" style="font-weight: bold; text-align:center;">Pasivo No Corriente</td>
+            <td></td>
+            <td></td>
+            `;
+        tablaResultados.appendChild(fila);
+    }
+    if(codigoCuenta[0] == 3){
+        const fila = document.createElement('tr');
+            fila.innerHTML = `
+            <td colspan="2" style="font-weight: bold; text-align:center;">Capital</td>
+            <td></td>
+            <td></td>
+            `;
+        tablaResultados.appendChild(fila);
+    }
 }

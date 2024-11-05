@@ -1,8 +1,10 @@
+const fecha = document.querySelector('#fecha');
+
 // Función para obtener y procesar transacciones del endpoint de balance de comprobación
-async function procesarTransacciones() {
+async function procesarTransacciones(anio, mes) {
     try {
         // Obtener datos del endpoint de Django
-        const response = await fetch('libromayorget/');
+        const response = await fetch(`/libromayorget/${anio}/${mes}`);
         const transacciones = await response.json();
 
         // Renderizamos los resultados en la tabla
@@ -81,6 +83,13 @@ function renderResultados(resultados) {
 }
 
 // Ejecutar procesarTransacciones cuando el DOM esté completamente cargado
-document.addEventListener("DOMContentLoaded", async () => {
+/* document.addEventListener("DOMContentLoaded", async () => {
     procesarTransacciones(); // Llama a la función principal cuando el DOM esté listo
+}); */
+
+fecha.addEventListener('change', async () => {
+    const fechaValue = fecha.value.split('-');
+    const anio = fechaValue[0];
+    const mes = fechaValue[1];
+    procesarTransacciones(anio, mes);
 });

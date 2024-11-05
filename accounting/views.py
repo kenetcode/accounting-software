@@ -217,10 +217,11 @@ def balance_de_comprobacion_data(request, year, month):
     data = list(transacciones)
     return JsonResponse(data, safe=False)
 
-def libro_mayor_data(request):
+def libro_mayor_data(request, year, month):
     try:
         transacciones = (
-            Transaccion.objects.all()
+            Transaccion.objects
+            .filter(fecha__year=year, fecha__month=month)
             .values("codigoCuenta", "nombreCuenta", "fecha", "numeroPartida", "Cargo", "Abono")
             .order_by("codigoCuenta", "fecha")
         )
@@ -236,14 +237,14 @@ def estado_de_resultados_data(request, year, month):
     cuentas = BalanceDeComprobacion.objects.filter(
         fecha__year=year, fecha__month=month
     ).filter(
-        Q(codigoCuenta__startswith='5101') & ~Q(codigoCuenta='510101') | Q(codigoCuenta__startswith='410')
+        Q(codigoCuenta__startswith='5101') & ~Q(codigoCuenta='510101') | Q(codigoCuenta__startswith='41')
     ).values('codigoCuenta', 'nombreCuenta').annotate(
         total_cargo=Sum('Cargo'),
         total_abono=Sum('Abono')
     )
 
     ingresos = sum(cuenta['total_abono'] for cuenta in cuentas if cuenta['codigoCuenta'].startswith('5101'))
-    gastos = sum(cuenta['total_cargo'] for cuenta in cuentas if cuenta['codigoCuenta'].startswith('410'))
+    gastos = sum(cuenta['total_cargo'] for cuenta in cuentas if cuenta['codigoCuenta'].startswith('41'))
 
     utilidad_perdida = ingresos - gastos
 
