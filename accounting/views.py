@@ -1,6 +1,6 @@
 # importaciones necesarias para trabajar con las vistas de la aplicacion accounting 
 from django.contrib.auth.models import User
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.http import JsonResponse, HttpResponse
 from django.shortcuts import get_object_or_404, render, redirect
 #from .models import //Aqui van los modelos a importar # importamos el modelo Usuario de la aplicacion accounting 
@@ -49,6 +49,11 @@ def login_view(request):
             return render(request, 'login.html', {'error': 'Usuario o contraseña incorrectos'})
     else:
         return render(request, 'login.html')
+
+#Funcion para cerrar sesion
+def cerrarSesion(request):
+    logout(request)
+    return redirect("/login")
 
 @login_required
 def catalogo_view(request):

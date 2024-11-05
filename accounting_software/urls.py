@@ -25,6 +25,7 @@ urlpatterns = [
     path('cuentas/<int:id>/', include('accounting.urls')),
     #Borrar
     path('login/', include('accounting.urls')),
+    path('logout/', include('accounting.urls')),
     path('catalogo/', include('accounting.urls')),
     path('controldecostos/', include('accounting.urls')),
     path('transacciones/', include('accounting.urls')),

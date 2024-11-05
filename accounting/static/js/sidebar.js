@@ -7,6 +7,7 @@ const btnControlCostos = document.querySelector('.costos-button');
 const btnEstadosFinancieros = document.querySelector('.estados-button');
 const btnLibroMayor = document.querySelector('.libro-button');
 const btnCierreContable = document.querySelector('.cierre-button');
+const btnCerrarSesion = document.querySelector('.cerrar-sesion');
 
 let toggle = 0;
 
@@ -61,6 +62,10 @@ btnLibroMayor.addEventListener('click', function () {
 
 btnCierreContable.addEventListener('click', function () {
     window.location.href = "/cierrecontable/";
+});
+
+btnCerrarSesion.addEventListener('click', function () {
+    window.location.href = "/logout/";
 });
 
 
