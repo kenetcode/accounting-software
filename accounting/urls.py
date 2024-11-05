@@ -34,7 +34,7 @@ urlpatterns = [
     path('guardar_estado_resultados/', views.guardar_estado_resultados_view, name='guardarEstadoResultados'),
     path('estadodecapitaldata/<int:year>/<int:month>/', views.estado_de_capital_data, name='estadoDeCapitalData'),
 
-    path('balancecomprobacion/', views.balance_de_comprobacion_data, name='balanceDeComprobacionData'),
+    #path('balancecomprobacion/', views.balance_de_comprobacion_data, name='balanceDeComprobacionData'),
     
     ##Control Costos,  
     path('agregarempleado/', views.agregar_empleado, name='agregarEmpleado'), 
