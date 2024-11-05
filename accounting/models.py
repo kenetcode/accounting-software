@@ -40,3 +40,4 @@ class Empleado(models.Model):
     nombreEmpleado = models.CharField(max_length=255)
     puestoEmpleado = models.CharField(max_length=255)
     salarioDiarioEmpleado = models.FloatField()
+    diasTrabajadosEmpleado = models.IntegerField()
