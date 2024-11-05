@@ -5,7 +5,8 @@ set -o errexit
 # Modify this line as needed for your package manager (pip, poetry, etc.)
 pip install -r requirements.txt
 
-# Apply any outstanding database migrations
+# Create and apply migrations
+python manage.py makemigrations
 python manage.py migrate
 
 # Truncate all tables in the database
