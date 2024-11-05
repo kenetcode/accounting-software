@@ -107,6 +107,7 @@ WSGI_APPLICATION = 'accounting_software.wsgi.application'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
 DATABASES = {
+    # Configuración de la base de datos para el despliegue en Render
     'default': dj_database_url.config(
         default=os.environ.get('DATABASE_URL')
     )
