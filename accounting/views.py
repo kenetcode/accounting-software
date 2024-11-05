@@ -5,7 +5,7 @@ from django.http import JsonResponse, HttpResponse
 from django.shortcuts import get_object_or_404, render, redirect
 #from .models import //Aqui van los modelos a importar # importamos el modelo Usuario de la aplicacion accounting 
 from django.contrib.auth.decorators import login_required 
-from .models import CuentasMayor, CuentasDetalle, Transaccion, BalanceDeComprobacion
+from .models import CuentasMayor, CuentasDetalle, Transaccion, BalanceDeComprobacion, Empleado
 from django.views.decorators.csrf import csrf_exempt
 import json
 # Create your views here.
@@ -58,7 +58,9 @@ def catalogo_view(request):
     return render(request, 'catalogo.html', {'cuentas': cuentasMayor})
 
 def controlCostos_view(request):
-    return render(request, 'controlCostos.html')
+    empleados = Empleado.objects.all()
+    empleados_data = [calcular_datos_empleado(empleado) for empleado in empleados]
+    return render(request, 'controlCostos.html', {'empleados': empleados_data})
 
 def transacciones_view(request):
     cuentasMayor = CuentasMayor.objects.all()
@@ -206,4 +208,79 @@ def balance_de_comprobacion_data(request):
     data = list(transacciones)
     
     return JsonResponse(data, safe=False)
+
+#Control Costos
+from django.shortcuts import render
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+
+# Vista para agregar un nuevo empleado mediante AJAX
+@csrf_exempt
+def agregar_empleado(request):
+    if request.method == 'POST':
+        # Recibe los datos del formulario
+        nombre = request.POST.get('nombreEmpleado')
+        puesto = request.POST.get('puestoTrabajo')
+        salario_diario = float(request.POST.get('salario', 0))
+        dias_trabajo = int(request.POST.get('dias', 0))
+
+        # Guardar en la base de datos
+        empleado = Empleado.objects.create(
+            nombreEmpleado=nombre,
+            puestoEmpleado=puesto,
+            salarioDiarioEmpleado=salario_diario,
+            diasTrabajadosEmpleado=dias_trabajo
+        )
+
+        # Calcular y devolver los datos en JSON
+        empleado_data = calcular_datos_empleado(empleado)
+        return JsonResponse(empleado_data)
+
+    return JsonResponse({'error': 'Método no permitido'}, status=400)
+
+# Función para calcular los valores adicionales
+def calcular_datos_empleado(empleado):
+
+    costo_real = round(empleado.diasTrabajadosEmpleado * empleado.salarioDiarioEmpleado, 2)
+
+    # Verificamos que el cálculo del séptimo día no sea negativo
+    septimo_dia = round(max(0, (7 - empleado.diasTrabajadosEmpleado) * empleado.salarioDiarioEmpleado) + costo_real, 2)
+
+    # Cálculo de vacaciones con una constante de 15 días y recargo de 30%, dividido entre 52 semanas
+    vacaciones = round(((empleado.salarioDiarioEmpleado * 15) + 0.30 * (empleado.salarioDiarioEmpleado * 15)) / 52, 2)
+
+    # Aguinaldo con una constante de 21 días, dividido entre 52 semanas
+    aguinaldo = round((empleado.salarioDiarioEmpleado * 21) / 52, 2)
+
+    # Cálculo de ISSS, AFP, e INCAFF en función de vacaciones y séptimo día
+    isss = round((vacaciones + septimo_dia) * 0.0775, 2)
+    afp = round((vacaciones + septimo_dia) * 0.0875, 2)
+    incaff = round((vacaciones + septimo_dia) * 0.01, 2)
+
+    # Salario total
+    salario_total = round(septimo_dia + vacaciones + aguinaldo + isss + afp + incaff, 2)
+
+
+
+    return {
+        'codigoEmpleado': empleado.codigoEmpleado,
+        'nombreEmpleado': empleado.nombreEmpleado,
+        'puestoEmpleado': empleado.puestoEmpleado,
+        'salarioDiarioEmpleado': empleado.salarioDiarioEmpleado,
+        'costo_real': costo_real,
+        'septimo_dia': septimo_dia,
+        'vacaciones': vacaciones,  
+        'aguinaldo': aguinaldo,
+        'isss': isss,
+        'afp': afp,
+        'incaff': incaff,
+        'salario_total': salario_total
+    }
+
+from django.shortcuts import redirect, get_object_or_404
+
+def eliminar_empleado(request, codigoEmpleado):
+        empleado = get_object_or_404(Empleado, codigoEmpleado=codigoEmpleado)
+        empleado.delete()
+        return JsonResponse({"exito":"exito"})
 

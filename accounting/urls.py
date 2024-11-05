@@ -29,5 +29,8 @@ urlpatterns = [
     path('libromayor/', views.libroMayor_view, name='libroMayor'),
     path('cierrecontable/', views.cierreContable_view, name='cierreContable'),
     path('balancecomprobacion/', views.balance_de_comprobacion_data, name='balanceDeComprobacionData'),
-
+    
+    ##Control Costos,  
+    path('agregarempleado/', views.agregar_empleado, name='agregarEmpleado'), 
+    path('eliminar_empleado/<int:codigoEmpleado>/', views.eliminar_empleado, name='eliminarEmpleado'),
 ]
