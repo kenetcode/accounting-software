@@ -20,20 +20,20 @@ function renderResultados(resultados) {
     let saldo = 0;
     for (i = 0; i < resultados.length; i++) {
         const fila = document.createElement('tr');
-        switch (resultados[1].codigoCuenta[0]){
-            case '1':
+        switch (parseInt(resultados[i].codigoCuenta[0])) {
+            case 1:
                 saldo += resultados[i].Cargo - resultados[i].Abono;
                 break;
-            case '2':
+            case 2:
                 saldo +=  resultados[i].Abono - resultados[i].Cargo;
                 break;
-            case '3':
+            case 3:
                 saldo +=  resultados[i].Abono - resultados[i].Cargo;
                 break;
-            case '4':
+            case 4:
                 saldo +=  resultados[i].Cargo - resultados[i].Abono;
                 break;
-            case '5':
+            case 5:
                 saldo +=  resultados[i].Abono - resultados[i].Cargo;
                 break;
         }

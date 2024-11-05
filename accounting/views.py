@@ -5,9 +5,11 @@ from django.http import JsonResponse, HttpResponse
 from django.shortcuts import get_object_or_404, render, redirect
 #from .models import //Aqui van los modelos a importar # importamos el modelo Usuario de la aplicacion accounting 
 from django.contrib.auth.decorators import login_required 
-from .models import CuentasMayor, CuentasDetalle, Transaccion, BalanceDeComprobacion
+from .models import CuentasMayor, CuentasDetalle, Transaccion, BalanceDeComprobacion, EstadoDeResultados
 from django.views.decorators.csrf import csrf_exempt
 import json
+from django.db.models import Sum, Q
+from datetime import datetime
 # Create your views here.
 # Create your views here.
 
@@ -221,3 +223,54 @@ def libro_mayor_data(request):
         # Imprime el error en la consola y devuelve un JSON de error
         print("Error:", e)
         return JsonResponse({"error": "Error al procesar las transacciones"}, status=500)
+
+@login_required
+def estado_de_resultados_data(request, year, month):
+    cuentas = BalanceDeComprobacion.objects.filter(
+        fecha__year=year, fecha__month=month
+    ).filter(
+        Q(codigoCuenta__startswith='5101') & ~Q(codigoCuenta='510101') | Q(codigoCuenta__startswith='410')
+    ).values('codigoCuenta', 'nombreCuenta').annotate(
+        total_cargo=Sum('Cargo'),
+        total_abono=Sum('Abono')
+    )
+
+    ingresos = sum(cuenta['total_abono'] for cuenta in cuentas if cuenta['codigoCuenta'].startswith('5101'))
+    gastos = sum(cuenta['total_cargo'] for cuenta in cuentas if cuenta['codigoCuenta'].startswith('410'))
+
+    utilidad_perdida = ingresos - gastos
+
+    data = {
+        'cuentas': list(cuentas),
+        'ingresos': ingresos,
+        'gastos': gastos,
+        'utilidad_perdida': utilidad_perdida
+    }
+
+    return JsonResponse(data)
+
+@csrf_exempt
+def guardar_estado_resultados_view(request):
+    if request.method == 'POST':
+        print("POST request received")  # Agregar este print
+        try:
+            datos = json.loads(request.body)
+            fecha_str = datos['fecha']
+            utilidad_perdida = datos['utilidad_perdida']
+            print("Fecha recibida:", fecha_str)
+            print("Utilidad/Pérdida recibida:", utilidad_perdida)
+
+            # Convertir la fecha de string a objeto date
+            fecha = datetime.strptime(fecha_str, '%Y-%m-%d').date()
+
+            estado_resultados = EstadoDeResultados(
+                fecha=fecha,
+                utilidadPerdida=utilidad_perdida
+            )
+            estado_resultados.save()
+            return JsonResponse({"mensaje": "Estado de Resultados guardado correctamente"})
+        except Exception as e:
+            print("Error al guardar:", str(e))
+            return JsonResponse({'success': False, 'message': str(e)}, status=500)
+    else:
+        return JsonResponse({"error": "Método no permitido"}, status=405)

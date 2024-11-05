@@ -6,6 +6,8 @@
     <title>Estado de Resultados - Software Contable TAS</title>
     <link rel="stylesheet" href="../static/css/sidebar.css">
     <link rel="stylesheet" href="../static/css/estadosFinancieros.css">
+    {% csrf_token %}
+    <meta name="csrf-token" content="{{ csrf_token }}">
 </head>
 <body>
     <!-- Sidebar -->
@@ -36,8 +38,13 @@
         </header>
 
         <div class="libro-mayor-container">
-            <h2 class="section-title">Estado de Resultados</h2>
-            
+            <div class="fecha-container">
+                <h2 class="section-title">Estado de Resultados</h2>
+                <div>
+                    <label for="fecha">Fecha:</label>
+                    <input type="month" id="fecha" name="fecha">
+                </div>
+            </div>
             <div class="table-container">
                 <table class="libro-mayor-table">
                     <thead>
@@ -48,33 +55,28 @@
                             <th>Abono</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <!-- Filas adicionales según sea necesario -->
+                    <tbody id="estado-resultados-body">
+                        <!-- Filas adicionales se llenarán dinámicamente -->
                     </tbody>
-                    <tclose id="total">
+                    <tfoot>
                         <tr>
                             <td colspan="2">TOTAL:</td>
                             <td id="total-cargo">$0</td>
                             <td id="total-abono">$0</td>
                         </tr>
-                    </tclose>
-                    <tclose id="utilidad/perdida">
                         <tr>
-                            <td colspan="2">Utilidad/Perdida:</td>
-                            <td id="utilidad">$0</td>
-                            <td id="perdida">$0</td>
+                            <td colspan="3">Utilidad/Perdida:</td>
+                            <td id="utilidad-perdida">$0</td>
                         </tr>
-                    </tclose>
+                    </tfoot>
                 </table>
+                
             </div>
+            <button id="guardar-estado-resultados" class="guardar-button">Guardar Estado de Resultados</button>
         </div>
     </main>
     <script src="../static/js/sidebar.js"></script>
+    <script src="../static/js/estadoResultados.js"></script>
+</html>
 </body>
 </html>

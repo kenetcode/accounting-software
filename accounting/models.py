@@ -41,3 +41,8 @@ class Empleado(models.Model):
     puestoEmpleado = models.CharField(max_length=255)
     salarioDiarioEmpleado = models.FloatField()
     diasTrabajadosEmpleado = models.IntegerField()
+
+class EstadoDeResultados(models.Model):
+    codigoEstadoDeResultado = models.AutoField(primary_key=True)
+    fecha = models.DateField()
+    utilidadPerdida = models.FloatField()
