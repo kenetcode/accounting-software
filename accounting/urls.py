@@ -32,5 +32,6 @@ urlpatterns = [
     path('libromayorget/', views.libro_mayor_data, name='libroMayorData'),
     path('estadoresultados/<int:year>/<int:month>/', views.estado_de_resultados_data, name='estadoDeResultadosData'),
     path('guardar_estado_resultados/', views.guardar_estado_resultados_view, name='guardarEstadoResultados'),
+    path('estadodecapitaldata/<int:year>/<int:month>/', views.estado_de_capital_data, name='estadoDeCapitalData'),
 
 ]

@@ -263,14 +263,48 @@ def guardar_estado_resultados_view(request):
             # Convertir la fecha de string a objeto date
             fecha = datetime.strptime(fecha_str, '%Y-%m-%d').date()
 
+            # Verificar si ya existe un registro para el mismo mes y año
+            existe_registro = EstadoDeResultados.objects.filter(fecha__year=fecha.year, fecha__month=fecha.month).exists()
+            print(f"Existe registro para {fecha.month}/{fecha.year}: {existe_registro}")
+
+            if existe_registro:
+                print(f"Registro ya existe para {fecha.month}/{fecha.year}")
+                return JsonResponse({
+                    "mensaje": f"Ya existe un registro para el mes {fecha.month} y año {fecha.year}"
+                }, status=400)
+
             estado_resultados = EstadoDeResultados(
                 fecha=fecha,
                 utilidadPerdida=utilidad_perdida
             )
             estado_resultados.save()
+            print("Estado de Resultados guardado correctamente")
             return JsonResponse({"mensaje": "Estado de Resultados guardado correctamente"})
         except Exception as e:
             print("Error al guardar:", str(e))
             return JsonResponse({'success': False, 'message': str(e)}, status=500)
     else:
         return JsonResponse({"error": "Método no permitido"}, status=405)
+
+@login_required
+def estado_de_capital_data(request, year, month):
+    try:
+        cuenta = BalanceDeComprobacion.objects.filter(
+            codigoCuenta='3101',
+            fecha__year=year,
+            fecha__month=month
+        ).aggregate(
+            total_cargo=Sum('Cargo'),
+            total_abono=Sum('Abono')
+        )
+
+        data = {
+            'codigo': '3101',
+            'nombre': 'Capital',
+            'total_cargo': cuenta['total_cargo'] or 0,
+            'total_abono': cuenta['total_abono'] or 0
+        }
+
+        return JsonResponse(data)
+    except Exception as e:
+        return JsonResponse({"error": str(e)}, status=500)

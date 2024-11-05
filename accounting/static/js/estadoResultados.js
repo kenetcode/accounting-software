@@ -37,6 +37,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Obtener el token CSRF desde la meta etiqueta
     const csrftoken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+    console.log("CSRF Token:", csrftoken);
 
     document.getElementById('guardar-estado-resultados').addEventListener('click', async function() {
         const fecha = fechaInput.value;
@@ -62,12 +63,12 @@ document.addEventListener('DOMContentLoaded', function() {
             });
 
             const result = await response.json();
-            if (response.ok) {
+            if (!response.ok) {
+                console.error("Error:", result);
+                alert("Error: " + (result.message || result.error || "Ya existe un registro para esta fecha"));
+            } else {
                 console.log(result);
                 alert(result.mensaje);
-            } else {
-                console.error("Error:", result.message || result.error);
-                alert("Error: " + (result.message || result.error));
             }
         } catch (error) {
             console.error("Error en la solicitud:", error);
