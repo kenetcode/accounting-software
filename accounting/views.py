@@ -5,8 +5,7 @@ from django.http import JsonResponse, HttpResponse
 from django.shortcuts import get_object_or_404, render, redirect
 #from .models import //Aqui van los modelos a importar # importamos el modelo Usuario de la aplicacion accounting 
 from django.contrib.auth.decorators import login_required 
-from .models import CuentasMayor, CuentasDetalle, Transaccion, BalanceDeComprobacion, EstadoDeResultados
-from .models import CuentasMayor, CuentasDetalle, Transaccion, BalanceDeComprobacion, Empleado
+from .models import CuentasMayor, CuentasDetalle, Transaccion, BalanceDeComprobacion, EstadoDeResultados, Empleado 
 from django.views.decorators.csrf import csrf_exempt
 import json
 from django.db.models import Sum, Q
