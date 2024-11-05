@@ -197,83 +197,85 @@ def run():
     cuenta_mayor16 = CuentasMayor.objects.create(
         codigoCuenta="4101",
         nombreCuenta="Costo de venta de licencias",
-        naturaleza="Gastos y costos operativos"
+        naturaleza="Cuentas de resultado deudoras"
     )
 
     cuenta_mayor17 = CuentasMayor.objects.create(
         codigoCuenta="4102",
         nombreCuenta="Sueldos y salarios",
-        naturaleza="Gastos y costos operativos"
+        naturaleza="Cuentas de resultado deudoras"
     )
 
     cuenta_mayor18 = CuentasMayor.objects.create(
         codigoCuenta="4103",
         nombreCuenta="Vacaciones",
-        naturaleza="Gastos y costos operativos"
+        naturaleza="Cuentas de resultado deudoras"
     )
 
     cuenta_mayor19 = CuentasMayor.objects.create(
         codigoCuenta="4104",
         nombreCuenta="Aguinaldo",
-        naturaleza="Gastos y costos operativos"
+        naturaleza="Cuentas de resultado deudoras"
     )
 
     cuenta_mayor20 = CuentasMayor.objects.create(
         codigoCuenta="4105",
         nombreCuenta="Cuota patronal ISSS",
-        naturaleza="Gastos y costos operativos"
+        naturaleza="Cuentas de resultado deudoras"
     )
 
     cuenta_mayor21 = CuentasMayor.objects.create(
         codigoCuenta="4106",
         nombreCuenta="Cuota patronal AFP",
-        naturaleza="Gastos y costos operativos"
+        naturaleza="Cuentas de resultado deudoras"
     )
 
     cuenta_mayor22 = CuentasMayor.objects.create(
         codigoCuenta="4107",
         nombreCuenta="INCAF",
-        naturaleza="Gastos y costos operativos"
+        naturaleza="Cuentas de resultado deudoras"
     )
 
     cuenta_mayor23 = CuentasMayor.objects.create(
         codigoCuenta="4108",
         nombreCuenta="Gastos de mantenimiento de equipos",
-        naturaleza="Gastos y costos operativos"
+        naturaleza="Cuentas de resultado deudoras"
     )
 
     cuenta_mayor24 = CuentasMayor.objects.create(
         codigoCuenta="4109",
         nombreCuenta="Gastos de administración",
-        naturaleza="Gastos y costos operativos"
+        naturaleza="Cuentas de resultado deudoras"
     )
 
     cuenta_mayor25 = CuentasMayor.objects.create(
         codigoCuenta="4110",
         nombreCuenta="Gastos financieros",
-        naturaleza="Gastos y costos operativos"
+        naturaleza="Cuentas de resultado deudoras"
     )
 
     cuenta_mayor26 = CuentasMayor.objects.create(
         codigoCuenta="5101",
         nombreCuenta="Ingresos por venta de licencias de software",
-        naturaleza="Ingresos por ventas de software"
+        naturaleza="Cuentas de resultado acreedoras"
     )
 
     CuentasDetalle.objects.create(
         codigoCuentaMayor=cuenta_mayor26,
         codigoCuenta="510101",
         nombreCuenta="Ingresos por venta directa de licencias",
-        naturaleza="Ingresos por ventas de software"
+        naturaleza="Cuentas de resultado acreedoras"
+    )
+
+    #Habiamos puesto esta cuenta como cuenta de mayor, pero es de detalle
+    CuentasDetalle.objects.create(
+        codigoCuentaMayor=cuenta_mayor26,
+        codigoCuenta="510102",
+        nombreCuenta="Ingresos por renovacion de licencias",
+        naturaleza="Cuentas de resultado acreedoras"
     )
 
     # Consultar cuentas de detalle asociadas a una cuenta de mayor
     cuentas_detalle = cuenta_mayor26.cuentasdetalle_set.all()
     for cuenta in cuentas_detalle:
         print(cuenta.nombreCuenta)
-
-    cuenta_mayor27 = CuentasMayor.objects.create(
-        codigoCuenta="5102",
-        nombreCuenta="Ingresos por venta de servicios",
-        naturaleza="Ingresos por ventas de software"
-    )
