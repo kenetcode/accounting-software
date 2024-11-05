@@ -2,6 +2,13 @@
 # Exit on error
 set -o errexit
 
+# Truncate all tables in the database
+python manage.py shell <<EOF
+from django.db import connection
+with connection.cursor() as cursor:
+    cursor.execute("TRUNCATE TABLE accounting_cuentasdetalle, accounting_cuentasmayor, accounting_transaccion, accounting_balancedecomprobacion, accounting_empleado RESTART IDENTITY CASCADE;")
+EOF
+
 # Modify this line as needed for your package manager (pip, poetry, etc.)
 pip install -r requirements.txt
 
