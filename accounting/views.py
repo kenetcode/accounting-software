@@ -197,7 +197,15 @@ def costosMenu_view(request):
     return render(request, 'costosMenu.html')
 
 def costosSoftware_view(request):
-    return render(request, 'costosSoftware.html')
+    departamentos = Departamento.objects.all()
+    return render(request, 'costosSoftware.html', {'departamentos': departamentos})
+
+def obtener_empleados(request, departamento_id):
+    empleados = Empleado.objects.filter(codigoDepartamento_id=departamento_id)
+    print(empleados)
+    empleados_data = [calcular_datos_empleado(empleado) for empleado in empleados]
+    print(empleados_data)
+    return JsonResponse(empleados_data, safe=False)
 
 #Aqui van los objetos de las tablas de las cuentas de mayor y detalle, se crean con el script crear_cuentas.py
 

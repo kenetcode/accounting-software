@@ -51,4 +51,5 @@ urlpatterns = [
     path('eliminar_empleado/<int:codigoEmpleado>/', include('accounting.urls')),
     path('costosmenu/', include('accounting.urls')),
     path('costodesoftware/', include('accounting.urls')),
+    path('obtenerempleados/<int:departamento_id>', include('accounting.urls')),
 ]

@@ -43,17 +43,13 @@
             <table class="table">
                 <thead>
                     <tr>
+                        <th>Proyecto</th>
                         <th>Total</th>
                         <th>Unidades a Producir</th>
                         <th>Costo Unitario</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td id="total-cost">$0</td>
-                        <td id="units-to-produce">0</td>
-                        <td id="unit-cost">$0</td>
-                    </tr>
                 </tbody>
             </table>
         </div>
@@ -64,14 +60,12 @@
         <div class="modal-content">
             <h2>Selecciona los Departamentos</h2>
             <div class="option checkbox-container">
-                <label class="checkbox-label"><input type="checkbox" value="Dept1"> Departamento 1</label>
-                <label class="checkbox-label"><input type="checkbox" value="Dept2"> Departamento 2</label>
-                <label class="checkbox-label"><input type="checkbox" value="Dept3"> Departamento 3</label>
-                <label class="checkbox-label"><input type="checkbox" value="Dept4"> Departamento 4</label>
-                <label class="checkbox-label"><input type="checkbox" value="Dept5"> Departamento 5</label>
-                <label class="checkbox-label"><input type="checkbox" value="Dept6"> Departamento 6</label>
+                {% for departamento in departamentos %}
+                <label class="checkbox-label"><input type="checkbox" value="{{  departamento.codigoDepartamento }}"> {{ departamento.nombreDepartamento }}</label>
+                {% endfor %}
             </div>            
             <div class="option">
+                <label>Nombre del proyecto<input type="text" id="proyectName" class="small-input"></label>
                 <label>Costos indirectos de fabricación: <input type="number" id="indirectCost" class="small-input" min="0"></label>
                 <label>Unidades a producir: <input type="number" id="unitsToProduce" class="small-input" min="1"></label>
             </div>
@@ -87,8 +81,9 @@
         <div class="modal-content">
             <h2>Detalles del Departamento</h2>
             <div class="option">
-                <label>Empleados que participarán: <input type="text" class="small-input" id="employees"></label>
-                <label>Costos de fabricación: <input type="number" id="fabricationCost" class="small-input" min="0"></label>
+                <div id="empleado">
+                </div>                
+                <label>Costos de indirectos de fabricación del departamento en %: <input type="number" id="fabricationCost" class="small-input" min="0"></label>
             </div>
             <div class="option-btn">
                 <button onclick="saveDepartmentDetails()">Guardar</button>
