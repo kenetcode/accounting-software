@@ -35,8 +35,19 @@ class BalanceDeComprobacion(models.Model):
     Cargo = models.FloatField()
     Abono = models.FloatField()
 
+class Departamento(models.Model):
+    codigoDepartamento = models.AutoField(primary_key=True)
+    nombreDepartamento = models.CharField(max_length=255)
+
 class Empleado(models.Model):
     codigoEmpleado = models.AutoField(primary_key=True)
     nombreEmpleado = models.CharField(max_length=255)
     puestoEmpleado = models.CharField(max_length=255)
     salarioDiarioEmpleado = models.FloatField()
+    diasTrabajadosEmpleado = models.IntegerField()
+    codigoDepartamento = models.ForeignKey(Departamento, on_delete=models.CASCADE)
+
+class EstadoDeResultados(models.Model):
+    codigoEstadoDeResultado = models.AutoField(primary_key=True)
+    fecha = models.DateField()
+    utilidadPerdida = models.FloatField()

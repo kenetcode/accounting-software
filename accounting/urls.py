@@ -9,6 +9,7 @@ urlpatterns = [
     #path('cuentas/<int:id>/', views.cuentas_view, name='cuentas'),
     #Borrar
     path('login/', views.login_view, name='login'),
+    path('logout/', views.cerrarSesion, name='logout'),
     path('catalogo/', views.catalogo_view, name='catalogo'),
     path('controldecostos/', views.controlCostos_view, name='controlCostos'),
     path('transacciones/', views.transacciones_view, name='transacciones'),
@@ -28,6 +29,17 @@ urlpatterns = [
     #-------------------------------------------------------------------------------------------------------------
     path('libromayor/', views.libroMayor_view, name='libroMayor'),
     path('cierrecontable/', views.cierreContable_view, name='cierreContable'),
-    path('balancecomprobacion/', views.balance_de_comprobacion_data, name='balanceDeComprobacionData'),
+    path('balancecomprobacion/<int:year>/<int:month>/', views.balance_de_comprobacion_data, name='balanceDeComprobacionData'),
+    path('libromayorget/<int:year>/<int:month>/', views.libro_mayor_data, name='libroMayorData'),
+    path('estadoresultados/<int:year>/<int:month>/', views.estado_de_resultados_data, name='estadoDeResultadosData'),
+    path('guardar_estado_resultados/', views.guardar_estado_resultados_view, name='guardarEstadoResultados'),
+    path('estadodecapitaldata/<int:year>/<int:month>/', views.estado_de_capital_data, name='estadoDeCapitalData'),
 
+    path('balancecomprobacion/', views.balance_de_comprobacion_data, name='balanceDeComprobacionData'),
+    
+    ##Control Costos,  
+    path('agregarempleado/', views.agregar_empleado, name='agregarEmpleado'), 
+    path('eliminar_empleado/<int:codigoEmpleado>/', views.eliminar_empleado, name='eliminarEmpleado'),
+    path('costosmenu/', views.costosMenu_view, name='costosMenu'),
+    path('costodesoftware/', views.costosSoftware_view, name='costoSoftware'),
 ]

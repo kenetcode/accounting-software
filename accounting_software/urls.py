@@ -25,6 +25,7 @@ urlpatterns = [
     path('cuentas/<int:id>/', include('accounting.urls')),
     #Borrar
     path('login/', include('accounting.urls')),
+    path('logout/', include('accounting.urls')),
     path('catalogo/', include('accounting.urls')),
     path('controldecostos/', include('accounting.urls')),
     path('transacciones/', include('accounting.urls')),
@@ -41,5 +42,13 @@ urlpatterns = [
     path('estadoderesultados/', include('accounting.urls')),
     path('estadodecapital/', include('accounting.urls')),
     path('balancegeneral/', include('accounting.urls')),
+    path('balancecomprobacion/<int:year>/<int:month>/', include('accounting.urls')),
+    path('libromayorget/<int:year>/<int:month>/', include('accounting.urls')),
+
     path('balancecomprobacion/', include('accounting.urls')),
+    path('agregarempleado/', include('accounting.urls')),
+    path('controlcostos/', include('accounting.urls')),
+    path('eliminar_empleado/<int:codigoEmpleado>/', include('accounting.urls')),
+    path('costosmenu/', include('accounting.urls')),
+    path('costodesoftware/', include('accounting.urls')),
 ]

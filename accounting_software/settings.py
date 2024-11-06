@@ -157,3 +157,5 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Definiendo la ruta de la página de inicio en LOGIN_URL donde se redirigirá al usuario si no ha iniciado sesión 
 LOGIN_URL = '/login/'
+
+CSRF_COOKIE_HTTPONLY = False

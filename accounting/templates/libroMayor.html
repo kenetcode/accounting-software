@@ -36,12 +36,19 @@
         </header>
 
         <div class="libro-mayor-container">
-            <h2 class="section-title">Libro Mayor</h2>
-            
+            <div class="fecha-container">
+                <h2 class="section-title">Libro Mayor</h2>
+                <div>
+                    <label for="fecha">Fecha:</label>
+                    <input type="month" id="fecha" name="fecha">
+                </div>
+            </div>
             <div class="table-container">
                 <table class="libro-mayor-table">
                     <thead>
                         <tr>
+                            <th>No.</th>
+                            <th>Fecha</th>
                             <th>Código</th>
                             <th>Cuenta de Mayor</th>
                             <th>Cargo</th>
@@ -49,14 +56,7 @@
                             <th>Saldo</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
+                    <tbody id="tabla-resultados">
                         <!-- Filas adicionales según sea necesario -->
                     </tbody>
                 </table>
@@ -64,5 +64,6 @@
         </div>
     </main>
     <script src="../static/js/sidebar.js"></script>
+    <script src="../static/js/libroMayor.js"></script>
 </body>
 </html>

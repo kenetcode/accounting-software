@@ -3,13 +3,22 @@ let totalCargos = 0;
 let totalAbonos = 0;
 let totalDeudor = 0;
 let totalAcreedor = 0;
+const fecha = document.querySelector('#fecha');
 
-async function procesarTransacciones() {
+document.addEventListener('DOMContentLoaded', async function() {
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = String(today.getMonth() + 1).padStart(2, '0');
+    fecha.value = `${year}-${month}`;
+    procesarTransacciones(year, month)
+});
+
+async function procesarTransacciones(anio, mes) {
     try {
         // Obtener datos del endpoint de Django
-        const response = await fetch('/balancecomprobacion/');
+        const response = await fetch(`/balancecomprobacion/${anio}/${mes}`);
         const transacciones = await response.json();
-
+        console.log(transacciones);
         // En este caso, el endpoint ya devuelve los datos agrupados y con totales
         const resultados = transacciones.map(cuenta => {
             return {
@@ -73,6 +82,15 @@ function colocarTabla() {
 }
 
 // Ejecutar procesarTransacciones cuando el DOM esté completamente cargado
-document.addEventListener("DOMContentLoaded", () => {
+/* document.addEventListener("DOMContentLoaded", () => {
     procesarTransacciones(); // Llama a la función principal cuando el DOM esté listo
+}); */
+
+fecha.addEventListener('change', async () => {
+    totalCargos = 0;
+    totalAbonos = 0;
+    totalDeudor = 0;
+    totalAcreedor = 0;
+    const [anio, mes] = fecha.value.split('-');
+    await procesarTransacciones(anio, mes);
 });
