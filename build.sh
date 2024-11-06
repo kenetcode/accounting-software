@@ -9,11 +9,21 @@ pip install -r requirements.txt
 python manage.py collectstatic --no-input
 
 # Apply any outstanding database migrations
-
+python manage.py makemigrations
 python manage.py migrate
+
+# Borrar todos los datos de los modelos
+python manage.py shell <<EOF
+from django.apps import apps
+
+models = apps.get_models()
+for model in models:
+    model.objects.all().delete()
+EOF
 
 # Run the script to add data to the models
 python manage.py runscript crear_cuentas
+python manage.py runscript crear_departamentos
 
 # Create a superuser if it doesn't exist
 python manage.py shell <<EOF
