@@ -3,6 +3,17 @@ const fecha = document.querySelector('#fecha');
 let totalCargos = 0;
 let totalAbonos = 0;
 
+document.addEventListener('DOMContentLoaded', async function() {
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = String(today.getMonth() + 1).padStart(2, '0');
+    fecha.value = `${year}-${month}`;
+    const tablaResultados = document.getElementById('tabla-resultados');
+    tablaResultados.innerHTML = ""; // Limpiar resultados anteriores
+    procesarTransacciones(year, month, obtenerUtilidad(year, month));
+    totalTabla();
+});
+
 // Función asincrónica para obtener la utilidad o pérdida de un año y mes específicos
 async function obtenerUtilidad(anio, mes) {
     try {

@@ -5,6 +5,14 @@ let totalDeudor = 0;
 let totalAcreedor = 0;
 const fecha = document.querySelector('#fecha');
 
+document.addEventListener('DOMContentLoaded', async function() {
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = String(today.getMonth() + 1).padStart(2, '0');
+    fecha.value = `${year}-${month}`;
+    procesarTransacciones(year, month)
+});
+
 async function procesarTransacciones(anio, mes) {
     try {
         // Obtener datos del endpoint de Django
@@ -84,6 +92,5 @@ fecha.addEventListener('change', async () => {
     totalDeudor = 0;
     totalAcreedor = 0;
     const [anio, mes] = fecha.value.split('-');
-    console.log(anio, mes); 
     await procesarTransacciones(anio, mes);
 });

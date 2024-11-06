@@ -1,10 +1,14 @@
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', async function() {
     const fechaInput = document.getElementById('fecha');
-
-    fechaInput.addEventListener('change', fetchEstadoCapital);
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = String(today.getMonth() + 1).padStart(2, '0');
+    fechaInput.value = `${year}-${month}`;
+    fechaInput.addEventListener('change', fetchEstadoCapital());
 
     async function fetchEstadoCapital() {
         const fecha = fechaInput.value;
+        console.log(fecha);
         if (!fecha) return;
 
         const [year, month] = fecha.split('-');
@@ -22,8 +26,6 @@ document.addEventListener('DOMContentLoaded', function() {
             }
 
             console.log("Datos recibidos:", data);
-
-            
 
             const tbody = document.getElementById('estado-capital-body');
             
