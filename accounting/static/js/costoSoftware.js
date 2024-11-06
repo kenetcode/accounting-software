@@ -62,17 +62,11 @@ async function openDepartmentDetailsModal() {
         document.getElementById('departmentDetailsModal').classList.add('show');
     } else {
         // Cálculo final del costo unitario
-        let unitCost = unitsToProduce > 0 ? (totalCost / unitsToProduce).toFixed(2) : 0;
-        const tbody = document.querySelector('tbody');
-        tbody.innerHTML += `
-            <tr>
-                <td>${nombreProyecto}</td>
-                <td>$${totalCost}</td>
-                <td>${unitsToProduce}</td>
-                <td>$${unitCost}</td>
-            </tr>
-        `;
+        
         alert("Todos los departamentos completados.");
+        enviarDatos();
+        imprimirTabla();
+        totalCost = 0; // Reiniciar el costo total
     }
 }
 
@@ -117,3 +111,68 @@ function clearDepartmentsModalInputs() {
     document.getElementById('proyectName').value = '';
     document.getElementById('unitsToProduce').value = '';
 }
+
+function enviarDatos() {
+    // Crear el objeto con los datos
+    let unitCost = unitsToProduce > 0 ? (totalCost / unitsToProduce).toFixed(2) : 0;
+    const data = {
+        nombreProyecto: nombreProyecto,  // Asegúrate de que estas variables estén definidas en tu JS
+        totalCost: totalCost,
+        unitsToProduce: unitsToProduce,
+        unitCost: unitCost
+    };
+
+    // Hacer la solicitud POST
+    fetch('/proyecto/', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': getCookie('csrftoken')
+        },
+        body: JSON.stringify(data)
+    })
+    .then(response => response.json())
+    .then(responseData => {
+        console.log(responseData);
+        alert('Datos enviados correctamente');
+    })
+    .catch(error => {
+        console.error('Error al enviar los datos:', error);
+    });
+}
+
+function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+
+async function imprimirTabla() {
+    let response = await fetch('/proyectoget');
+    let data = await response.json();
+    const tbody = document.querySelector('tbody');
+    tbody.innerHTML = '';
+    data.forEach(data => {
+        tbody.innerHTML += `
+        <tr>
+            <td>${data.nombreProyecto}</td>
+            <td>$${(data.costoUnitario*data.totalUnidadesAProducir)}</td>
+            <td>${data.totalUnidadesAProducir}</td>
+            <td>$${data.costoUnitario}</td>
+        </tr>
+    `;
+    });
+}
+
+document.addEventListener('DOMContentLoaded', async function() {
+    await imprimirTabla();
+});
