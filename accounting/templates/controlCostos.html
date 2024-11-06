@@ -104,6 +104,13 @@
                 <label for="dias">Días de Trabajo:</label>
                 <input type="text" id="dias" placeholder="Días de Trabajo">
 
+                <select name="departamentos" id="departamento" class="departamentos">
+                    <option value="" selected disabled>Selecciona una opción</option>
+                    {% for departamento in departamentos %}
+                    <option value="{{ departamento.codigoDepartamento }}">{{ departamento.nombreDepartamento }}</option>
+                    {% endfor %}
+                </select>
+
                 <div class="modal-botones">
                     <button type="button" onclick="cerrarModal()" class="btn-cancelar">Cerrar</button>
                     <button type="submit" class="btn-guardar">Guardar</button>

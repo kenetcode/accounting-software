@@ -5,7 +5,7 @@ from django.http import JsonResponse, HttpResponse
 from django.shortcuts import get_object_or_404, render, redirect
 #from .models import //Aqui van los modelos a importar # importamos el modelo Usuario de la aplicacion accounting 
 from django.contrib.auth.decorators import login_required 
-from .models import CuentasMayor, CuentasDetalle, Transaccion, BalanceDeComprobacion, EstadoDeResultados, Empleado 
+from .models import CuentasMayor, CuentasDetalle, Transaccion, BalanceDeComprobacion, EstadoDeResultados, Empleado, Departamento 
 from django.views.decorators.csrf import csrf_exempt
 import json
 from django.db.models import Sum, Q
@@ -67,7 +67,9 @@ def catalogo_view(request):
 def controlCostos_view(request):
     empleados = Empleado.objects.all()
     empleados_data = [calcular_datos_empleado(empleado) for empleado in empleados]
-    return render(request, 'controlCostos.html', {'empleados': empleados_data})
+    departamentos = Departamento.objects.all()
+    print(departamentos)
+    return render(request, 'controlCostos.html', {'empleados': empleados_data, 'departamentos': departamentos})
 
 def transacciones_view(request):
     cuentasMayor = CuentasMayor.objects.all()
@@ -357,13 +359,15 @@ def agregar_empleado(request):
         puesto = request.POST.get('puestoTrabajo')
         salario_diario = float(request.POST.get('salario', 0))
         dias_trabajo = int(request.POST.get('dias', 0))
-
+        codigo_departamento = request.POST.get('departamento', 0)
+        print(codigo_departamento)
         # Guardar en la base de datos
         empleado = Empleado.objects.create(
             nombreEmpleado=nombre,
             puestoEmpleado=puesto,
             salarioDiarioEmpleado=salario_diario,
-            diasTrabajadosEmpleado=dias_trabajo
+            diasTrabajadosEmpleado=dias_trabajo,
+            codigoDepartamento_id = codigo_departamento
         )
 
         # Calcular y devolver los datos en JSON

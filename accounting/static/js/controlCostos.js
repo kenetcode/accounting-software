@@ -1,5 +1,6 @@
 function abrirModal() {
     // Mostrar el modal
+
     document.getElementById("modalEmpleado").style.display = "block";
 }
 
@@ -24,6 +25,7 @@ document.querySelector('.btn-guardar').addEventListener('click', function (event
     const puesto = document.getElementById("puestoTrabajo").value;
     const salario = document.getElementById("salario").value;
     const dias = document.getElementById("dias").value;
+    const departamento = document.getElementById("departamento").value;
 
     // Enviar datos al backend con fetch
     fetch('/agregarempleado/', {
@@ -36,7 +38,8 @@ document.querySelector('.btn-guardar').addEventListener('click', function (event
             'nombreEmpleado': nombre,
             'puestoTrabajo': puesto,
             'salario': salario,
-            'dias': dias
+            'dias': dias,
+            'departamento': departamento
         })
     })
         .then(response => response.json())
@@ -80,4 +83,5 @@ function limpiarCamposFormulario() {
     document.getElementById("puestoTrabajo").value = "";
     document.getElementById("salario").value = "";
     document.getElementById("dias").value = "";
+    document.getElementById("departamento").value = "";
 }
