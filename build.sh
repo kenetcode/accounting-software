@@ -29,4 +29,4 @@ python manage.py collectstatic --no-input
 #python manage.py runscript crear_cuentas
 #python manage.py runscript crear_departamentos
 
-python manage.py shell -c "from django.contrib.auth.models import User; User.objects.create_user('admin', password='admin')"
+#python manage.py shell -c "from django.contrib.auth.models import User; User.objects.create_user('admin', password='admin')"
