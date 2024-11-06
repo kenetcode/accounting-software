@@ -47,6 +47,19 @@ body {
     font-size: clamp(1.5rem, 2.5vw, 2rem);
 }
 
+.fecha-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#fecha {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-family: var(--primary-font);
+}
+
 /* Tabla */
 .table-container {
     background-color: var(--white);
@@ -150,3 +163,4 @@ body {
     background: var(--secondary-color);
     border-radius: 3px;
 }
+

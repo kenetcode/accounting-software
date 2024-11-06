@@ -77,8 +77,6 @@ body {
     background-color: var(--secondary-color);
     color: var(--white);
     font-family: var(--secondary-font);
-    position: sticky;
-    top: 0;
 }
 
 .control-costos-table tr:nth-child(even) {
@@ -229,6 +227,7 @@ body {
     display: flex;
     justify-content: flex-end;
     gap: 10px;
+    margin-top: 10px;
 }
 
 .btn-cancelar,

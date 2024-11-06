@@ -36,8 +36,13 @@
         </header>
 
         <div class="libro-mayor-container">
-            <h2 class="section-title">Estado Capital</h2>
-            
+            <div class="fecha-container">
+                <h2 class="section-title">Estado Capital</h2>
+                <div>
+                    <label for="fecha">Fecha:</label>
+                    <input type="month" id="fecha" name="fecha">
+                </div>
+            </div>
             <div class="table-container">
                 <table class="libro-mayor-table">
                     <thead>
@@ -48,32 +53,25 @@
                             <th>Abono</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <!-- Filas adicionales según sea necesario -->
+                    <tbody id="estado-capital-body">
+                        <!-- Filas adicionales se llenarán dinámicamente -->
                     </tbody>
-                    <tclose id="total">
+                    <tfoot>
                         <tr>
                             <td colspan="2">TOTAL:</td>
                             <td id="total-cargo">$0</td>
                             <td id="total-abono">$0</td>
                         </tr>
-                    </tclose>
-                    <tclose id="utilidad/perdida">
                         <tr>
                             <td colspan="3">Capital Actualizado:</td>
                             <td id="capital">$0</td>
                         </tr>
-                    </tclose>
+                    </tfoot>
                 </table>
             </div>
         </div>
     </main>
     <script src="../static/js/sidebar.js"></script>
+    <script src="../static/js/estadoCapital.js"></script>
 </body>
 </html>
