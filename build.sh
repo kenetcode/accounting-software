@@ -5,11 +5,16 @@ set -o errexit
 # Modify this line as needed for your package manager (pip, poetry, etc.)
 pip install -r requirements.txt
 
-# Drop all tables in the database
+# Eliminar todas las tablas de la base de datos
 python manage.py shell <<EOF
 from django.db import connection
+from django.apps import apps
+
+models = apps.get_models()
 with connection.cursor() as cursor:
-    cursor.execute("DROP TABLE IF EXISTS accounting_cuentasdetalle, accounting_cuentasmayor, accounting_transaccion, accounting_balancedecomprobacion, accounting_empleado CASCADE;")
+    for model in models:
+        table_name = model._meta.db_table
+        cursor.execute(f"DROP TABLE IF EXISTS {table_name} CASCADE;")
 EOF
 
 # Create and apply migrations
