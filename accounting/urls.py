@@ -43,4 +43,6 @@ urlpatterns = [
     path('costosmenu/', views.costosMenu_view, name='costosMenu'),
     path('costodesoftware/', views.costosSoftware_view, name='costoSoftware'),
     path('obtenerempleados/<int:departamento_id>', views.obtener_empleados, name='obtenerEmpleados'),
+    path('proyecto/', views.proyecto_data, name='proyecto'),
+    path('proyectoget/', views.proyecto_get, name='proyectoGet'),
 ]

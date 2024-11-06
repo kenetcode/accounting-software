@@ -52,4 +52,6 @@ urlpatterns = [
     path('costosmenu/', include('accounting.urls')),
     path('costodesoftware/', include('accounting.urls')),
     path('obtenerempleados/<int:departamento_id>', include('accounting.urls')),
+    path('proyecto/', include('accounting.urls')),
+    path('proyectoget/', include('accounting.urls')),
 ]

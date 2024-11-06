@@ -5,7 +5,7 @@ from django.http import JsonResponse, HttpResponse
 from django.shortcuts import get_object_or_404, render, redirect
 #from .models import //Aqui van los modelos a importar # importamos el modelo Usuario de la aplicacion accounting 
 from django.contrib.auth.decorators import login_required 
-from .models import CuentasMayor, CuentasDetalle, Transaccion, BalanceDeComprobacion, EstadoDeResultados, Empleado, Departamento 
+from .models import CuentasMayor, CuentasDetalle, Transaccion, BalanceDeComprobacion, EstadoDeResultados, Empleado, Departamento, Proyecto
 from django.views.decorators.csrf import csrf_exempt
 import json
 from django.db.models import Sum, Q
@@ -430,3 +430,39 @@ def eliminar_empleado(request, codigoEmpleado):
         empleado.delete()
         return JsonResponse({"exito":"exito"})
 
+def proyecto_data(request):
+    if request.method == 'POST':
+        # Convertir la solicitud JSON a un diccionario de Python
+        data = json.loads(request.body)
+
+        # Acceder a los datos enviados
+        nombre_proyecto = data.get('nombreProyecto')
+        total_cost = data.get('totalCost')
+        units_to_produce = data.get('unitsToProduce')
+        unit_cost = data.get('unitCost')
+
+        if nombre_proyecto and total_cost and units_to_produce and unit_cost:
+            # Guardar los datos en la base de datos
+            nuevo_proyecto = Proyecto(
+                nombreProyecto=nombre_proyecto,
+                totalUnidadesAProducir=units_to_produce,
+                costoUnitario=unit_cost
+            )
+            nuevo_proyecto.save()
+        
+            return JsonResponse({'message': 'Datos guardados correctamente', 'status': 'success'})
+        else:
+            return JsonResponse({'error': 'Datos incompletos'}, status=400)
+
+        return JsonResponse({'message': 'Datos recibidos correctamente', 'status': 'success'})
+    else: 
+        return JsonResponse({'error': 'Método no permitido'}, status=405)
+
+def proyecto_get(request):
+    proyectos = Proyecto.objects.all().values('codigoProyecto', 'nombreProyecto', 'totalUnidadesAProducir', 'costoUnitario')
+
+     # Convertir los datos a una lista
+    proyectos_list = list(proyectos)
+
+    return JsonResponse(proyectos_list, safe=False)
+            
