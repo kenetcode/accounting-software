@@ -107,15 +107,19 @@ WSGI_APPLICATION = 'accounting_software.wsgi.application'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
 DATABASES = {
-    
+
     """ 'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
     } """
 
-    # Configuración de la base de datos para el despliegue en Render
+    """ # Configuración de la base de datos para el despliegue en Render
     'default': dj_database_url.config(
         default=os.environ.get('DATABASE_URL')
+    ) """
+
+    'default': dj_database_url.config(
+        default='postgresql://contabilidad_17cq_user:OCuMRA6kyzo3g0hCn5ciWtcc6Z5YOyj2@dpg-cskitqjtq21c73dpgoo0-a.oregon-postgres.render.com/contabilidad_17cq'
     )
 }
 
