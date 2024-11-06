@@ -12,13 +12,16 @@ python manage.py collectstatic --no-input
 python manage.py makemigrations
 python manage.py migrate
 
-# Borrar todos los datos de los modelos
+# Borrar todos los datos de los modelos y restablecer los IDs
 python manage.py shell <<EOF
-from django.apps import apps
+from django.db import connection
+from accounting.models import CuentasMayor, CuentasDetalle, Transaccion, BalanceDeComprobacion, Departamento, Empleado, EstadoDeResultados
 
-models = apps.get_models()
-for model in models:
-    model.objects.all().delete()
+models = [CuentasMayor, CuentasDetalle, Transaccion, BalanceDeComprobacion, Departamento, Empleado, EstadoDeResultados]
+with connection.cursor() as cursor:
+    for model in models:
+        table_name = model._meta.db_table
+        cursor.execute(f"TRUNCATE TABLE {table_name} RESTART IDENTITY CASCADE;")
 EOF
 
 # Run the script to add data to the models
