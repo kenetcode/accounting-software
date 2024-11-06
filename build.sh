@@ -10,7 +10,7 @@ python manage.py collectstatic --no-input
 
 # Apply any outstanding database migrations
 #python manage.py makemigrations
-python manage.py migrate
+#python manage.py migrate
 
 
 # Borrar todos los datos de los modelos y restablecer los IDs
@@ -26,7 +26,7 @@ python manage.py migrate
 #EOF
 
 # Run the script to add data to the models
-python manage.py runscript crear_cuentas
-python manage.py runscript crear_departamentos
+#python manage.py runscript crear_cuentas
+#python manage.py runscript crear_departamentos
 
 python manage.py shell -c "from django.contrib.auth import get_user_model; User = get_user_model(); User.objects.create_superuser('admin', 'admin@gmail.com', 'admin')"
