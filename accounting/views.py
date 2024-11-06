@@ -191,6 +191,12 @@ def libroMayor_view(request):
 def cierreContable_view(request):
     return render(request, 'cierreContable.html')
 
+def costosMenu_view(request):
+    return render(request, 'costosMenu.html')
+
+def costosSoftware_view(request):
+    return render(request, 'costosSoftware.html')
+
 #Aqui van los objetos de las tablas de las cuentas de mayor y detalle, se crean con el script crear_cuentas.py
 
 #Pruebas

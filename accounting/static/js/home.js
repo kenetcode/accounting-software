@@ -6,8 +6,8 @@ function transacciones() {
     window.location.href = "/transacciones";
 }
 
-function controlcostos() {
-    window.location.href = "/controldecostos";
+function costosmenu() {
+    window.location.href = "/costosmenu";
 }
 
 function estadosfinancieros() {

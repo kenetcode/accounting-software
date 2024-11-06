@@ -49,7 +49,7 @@ btnCatalogo.addEventListener('click', function () {
 /* NUEVOS */
 
 btnControlCostos.addEventListener('click', function () {
-    window.location.href = "/controldecostos/";
+    window.location.href = "/costosmenu/";
 });
 
 btnEstadosFinancieros.addEventListener('click', function () {
