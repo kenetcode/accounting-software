@@ -51,3 +51,9 @@ class EstadoDeResultados(models.Model):
     codigoEstadoDeResultado = models.AutoField(primary_key=True)
     fecha = models.DateField()
     utilidadPerdida = models.FloatField()
+
+class Proyecto(models.Model):
+    codigoProyecto = models.AutoField(primary_key=True)
+    nombreProyecto = models.CharField(max_length=255)
+    totalUnidadesAProducir = models.IntegerField()
+    costoUnitario = models.FloatField()
