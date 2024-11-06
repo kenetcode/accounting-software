@@ -26,8 +26,8 @@ python manage.py collectstatic --no-input
 #EOF
 
 # Run the script to add data to the models
-python manage.py runscript crear_cuentas
-python manage.py runscript crear_departamentos
+#python manage.py runscript crear_cuentas
+#python manage.py runscript crear_departamentos
 
 # Create a superuser if it doesn't exist
 python manage.py shell <<EOF
