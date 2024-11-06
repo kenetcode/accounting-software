@@ -12,6 +12,11 @@ python manage.py collectstatic --no-input
 python manage.py makemigrations
 python manage.py migrate
 
+if [ -z "$DATABASE_URL" ]; then
+    echo "Error: DATABASE_URL no está configurada."
+    exit 1
+fi
+
 # Borrar todos los datos de los modelos y restablecer los IDs
 python manage.py shell <<EOF
 from django.db import connection
