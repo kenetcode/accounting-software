@@ -49,4 +49,6 @@ urlpatterns = [
     path('agregarempleado/', include('accounting.urls')),
     path('controlcostos/', include('accounting.urls')),
     path('eliminar_empleado/<int:codigoEmpleado>/', include('accounting.urls')),
+    path('costosmenu/', include('accounting.urls')),
+    path('costodesoftware/', include('accounting.urls')),
 ]

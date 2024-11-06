@@ -40,4 +40,6 @@ urlpatterns = [
     ##Control Costos,  
     path('agregarempleado/', views.agregar_empleado, name='agregarEmpleado'), 
     path('eliminar_empleado/<int:codigoEmpleado>/', views.eliminar_empleado, name='eliminarEmpleado'),
+    path('costosmenu/', views.costosMenu_view, name='costosMenu'),
+    path('costodesoftware/', views.costosSoftware_view, name='costoSoftware'),
 ]
