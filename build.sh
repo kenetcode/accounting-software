@@ -16,7 +16,7 @@ python manage.py migrate
 #python manage.py runscript crear_cuentas
 #python manage.py runscript crear_departamentos
 
- Create a superuser if it doesn't exist
+Create a superuser if it doesn't exist
 python manage.py shell <<EOF
 import os
 from django.contrib.auth import get_user_model
