@@ -10,8 +10,8 @@ document.addEventListener('DOMContentLoaded', async function() {
     fecha.value = `${year}-${month}`;
     const tablaResultados = document.getElementById('tabla-resultados');
     tablaResultados.innerHTML = ""; // Limpiar resultados anteriores
-    procesarTransacciones(year, month, obtenerUtilidad(year, month));
-    totalTabla();
+    const utilidad = await obtenerUtilidad(year, month);
+    await procesarTransacciones(year, month, utilidad);
 });
 
 // Función asincrónica para obtener la utilidad o pérdida de un año y mes específicos
@@ -62,7 +62,6 @@ fecha.addEventListener('change', async () => {
     tablaResultados.innerHTML = ""; // Limpiar resultados anteriores
     const utilidad_perdida = await obtenerUtilidad(anio, mes);
     await procesarTransacciones(anio, mes, utilidad_perdida);
-    await totalTabla();
 });
 
 async function imprimirTabla(resultado, utilidad_perdida) {
@@ -98,6 +97,7 @@ async function imprimirTabla(resultado, utilidad_perdida) {
             tablaResultados.appendChild(fila);
         }
     }
+    totalTabla();
 }
 
 async function totalTabla() {
