@@ -306,16 +306,37 @@ def estado_de_capital_data(request, year, month):
             total_abono=Sum('Abono')
         )
 
+        # Obtener utilidadPerdida del EstadoDeResultados
+        estado_resultados = EstadoDeResultados.objects.filter(
+            fecha__year=year,
+            fecha__month=month
+        ).first()
+
+        utilidad_perdida = estado_resultados.utilidadPerdida if estado_resultados else 0
+        print("Utilidad/Pérdida:", utilidad_perdida)
+
+        # Calcular capital actualizado con la condición
+        capital_actualizado = (cuenta['total_abono'] or 0) - (cuenta['total_cargo'] or 0)
+        if utilidad_perdida > 0:
+            capital_actualizado += utilidad_perdida
+
+        print("Estado de capital actualizado",capital_actualizado)
+
         data = {
             'codigo': '3101',
             'nombre': 'Capital',
             'total_cargo': cuenta['total_cargo'] or 0,
-            'total_abono': cuenta['total_abono'] or 0
+            'total_abono': cuenta['total_abono'] or 0,
+            'utilidad_perdida': utilidad_perdida,
+            'capital_actualizado': capital_actualizado
         }
 
         return JsonResponse(data)
     except Exception as e:
         return JsonResponse({"error": str(e)}, status=500)
+
+    
+
 #Control Costos
 from django.shortcuts import render
 from django.http import JsonResponse
