@@ -5,23 +5,24 @@ set -o errexit
 # Modify this line as needed for your package manager (pip, poetry, etc.)
 pip install -r requirements.txt
 
-# Create and apply migrations
-python manage.py makemigrations
-python manage.py migrate
-
-# Truncate all tables in the database
-python manage.py shell <<EOF
-from django.db import connection
-with connection.cursor() as cursor:
-    cursor.execute("TRUNCATE TABLE accounting_cuentasdetalle, accounting_cuentasmayor, accounting_transaccion, accounting_balancedecomprobacion, accounting_empleado RESTART IDENTITY CASCADE;")
-EOF
-
 # Convert static asset files
 python manage.py collectstatic --no-input
 
+# Apply any outstanding database migrations
+python manage.py makemigrations
+python manage.py migrate
+
+# Borrar todos los datos de los modelos
+python manage.py shell <<EOF
+from django.apps import apps
+
+models = apps.get_models()
+for model in models:
+    model.objects.all().delete()
+EOF
+
 # Run the script to add data to the models
 python manage.py runscript crear_cuentas
-
 python manage.py runscript crear_departamentos
 
 # Create a superuser if it doesn't exist
@@ -35,4 +36,3 @@ password = os.environ.get('DJANGO_SUPERUSER_PASSWORD', 'admin')
 if not User.objects.filter(username=username).exists():
     User.objects.create_superuser(username, email, password)
 EOF
-
