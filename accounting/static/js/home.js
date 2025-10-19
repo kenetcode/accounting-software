@@ -21,3 +21,7 @@ function libromayor() {
 function cierrecontable() {
     window.location.href = "/cierrecontable";
 }
+
+function costoEmpleado() {
+    window.location.href = "/controldecostos/";
+}
