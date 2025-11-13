@@ -1,44 +1,28 @@
+{% load static %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Transacciones</title>
-    <link rel="stylesheet" href="../static/css/sidebar.css">
-    <link rel="stylesheet" href="../static/css/costosSoftware.css">
+    <title>Costos de Software - Software Contable TAS</title>
+    <link rel="stylesheet" href="{% static 'css/navbar.css' %}">
+    <link rel="stylesheet" href="{% static 'css/costosSoftware.css' %}">
 </head>
 
 <body>
-    <!-- Sidebar Comienzo -->
-    <section id="sidebar">
-        <div class="toggle-button">
-            <span class="activate">&#9776;</span>
-            <span class="deactivate">&#9668;</span>
-        </div>
-        <ul>
-            <!-- COLOCAR DISPLAY:NONE A LA OPCION QUE NO SE DEBE USAR -->
-            <li><img src="../static/img/logo.webp" alt="logo"></li>
-            <li class="home-button">Home</li>
-            <li class="transacciones-button" style="display: none;">Transacciones</li>
-            <li class="costos-button">Control de Costos</li>
-            <li class="catalogo-button">Catalogo de Cuentas</li>
-            <li class="libro-button">Libro Mayor</li>
-            <li class="estados-button">Estados Financieros</li>
-            <li class="cierre-button">Cierre Contable</li>
-            <li class="cerrar-sesion">Cerrar Sesion</li>
-        </ul>
-    </section>
-    <header class="container-header">
-        <div class="content-header">
-            <h1 class="title">Software Contable TAS</h1>
-        </div>
-    </header>
-
+    {% include 'includes/navbar.html' %}
+    
     <main class="container">
+        <div class="page-header">
+            <h2 class="section-title">Control de Costos de Software</h2>
+            <a href="{% url 'accounting:costosMenu' %}" class="btn-back">
+                <span>←</span> Regresar al Menú de Costos
+            </a>
+        </div>
+        
         <button class="add-btn" onclick="openDepartmentsModal()">Seleccionar Departamentos</button>
 
-        <!-- Tabla de resultados finales -->
         <div class="table-container">
             <table class="table">
                 <thead>
@@ -61,13 +45,22 @@
             <h2>Selecciona los Departamentos</h2>
             <div class="option checkbox-container">
                 {% for departamento in departamentos %}
-                <label class="checkbox-label"><input type="checkbox" value="{{  departamento.codigoDepartamento }}"> {{ departamento.nombreDepartamento }}</label>
+                <label class="checkbox-label">
+                    <input type="checkbox" value="{{  departamento.codigoDepartamento }}"> 
+                    {{ departamento.nombreDepartamento }}
+                </label>
                 {% endfor %}
             </div>            
             <div class="option">
-                <label>Nombre del proyecto<input type="text" id="proyectName" class="small-input"></label>
-                <label>Costos indirectos de fabricación: <input type="number" id="indirectCost" class="small-input" min="0"></label>
-                <label>Unidades a producir: <input type="number" id="unitsToProduce" class="small-input" min="1"></label>
+                <label>Nombre del proyecto
+                    <input type="text" id="proyectName" class="small-input">
+                </label>
+                <label>Costos indirectos de fabricación: 
+                    <input type="number" id="indirectCost" class="small-input" min="0">
+                </label>
+                <label>Unidades a producir: 
+                    <input type="number" id="unitsToProduce" class="small-input" min="1">
+                </label>
             </div>
             <div class="option-btn">
                 <button onclick="nextModal()">Siguiente</button>
@@ -81,9 +74,10 @@
         <div class="modal-content">
             <h2>Detalles del Departamento</h2>
             <div class="option">
-                <div id="empleado">
-                </div>                
-                <label>Costos de indirectos de fabricación del departamento en %: <input type="number" id="fabricationCost" class="small-input" min="0"></label>
+                <div id="empleado"></div>                
+                <label>Costos de indirectos de fabricación del departamento en %: 
+                    <input type="number" id="fabricationCost" class="small-input" min="0">
+                </label>
             </div>
             <div class="option-btn">
                 <button onclick="saveDepartmentDetails()">Guardar</button>
@@ -91,7 +85,7 @@
             </div>
         </div>
     </div>
-    <script src="../static/js/sidebar.js"></script>
-    <script src="../static/js/costoSoftware.js"></script>
+    
+    <script src="{% static 'js/costoSoftware.js' %}"></script>
 </body>
 </html>

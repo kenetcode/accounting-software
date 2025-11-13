@@ -90,7 +90,7 @@ TEMPLATES = [
 # Definiendo la ruta de los archivos estáticos en STATIC_URL 
 STATIC_URL = '/static/'
 # Definiendo la ruta de los archivos estáticos de la aplicación 'accounting' en STATICFILES_DIRS
-#STATICFILES_DIRS = [os.path.join(BASE_DIR, 'accounting/static')]
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'accounting/static')]
 
 # This production code might break development mode, so we check whether we're in DEBUG mode
 if not DEBUG:
@@ -147,8 +147,7 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
-
-STATIC_URL = 'static/'
+# STATIC_URL ya está definido arriba
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field

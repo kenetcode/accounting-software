@@ -1,0 +1,47 @@
+{% load static %}
+<nav class="navbar">
+    <div class="navbar-container">
+        <a href="{% url 'accounting:home' %}" class="navbar-brand">
+            <img src="{% static 'img/logo.webp' %}" alt="TAS Logo">
+            <span>Software Contable TAS</span>
+        </a>
+        
+        <button class="navbar-toggle" aria-label="Toggle navigation">
+            <span>☰</span>
+        </button>
+        
+        <ul class="navbar-menu">
+            <li class="navbar-item">
+                <a href="{% url 'accounting:home' %}" class="navbar-link">Inicio</a>
+            </li>
+            <li class="navbar-item">
+                <a href="{% url 'accounting:catalogo' %}" class="navbar-link">Catálogo</a>
+            </li>
+            <li class="navbar-item">
+                <a href="{% url 'accounting:transacciones' %}" class="navbar-link">Transacciones</a>
+            </li>
+            <li class="navbar-item">
+                <a href="{% url 'accounting:estadosFinancieros' %}" class="navbar-link">Estados Financieros</a>
+            </li>
+            <li class="navbar-item">
+                <a href="{% url 'accounting:libroMayor' %}" class="navbar-link">Libro Mayor</a>
+            </li>
+            <li class="navbar-item">
+                <a href="{% url 'accounting:costosMenu' %}" class="navbar-link">Costos</a>
+            </li>
+            <li class="navbar-item">
+                <a href="{% url 'accounting:cierreContable' %}" class="navbar-link">Cierre Contable</a>
+            </li>
+            
+            <li class="navbar-actions">
+                <span class="user-name">{{ user.username }}</span>
+                <form method="post" action="{% url 'accounting:logout' %}" style="display: inline;">
+                    {% csrf_token %}
+                    <button type="submit" class="btn-navbar">Cerrar Sesión</button>
+                </form>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<script src="{% static 'js/navbar.js' %}"></script>

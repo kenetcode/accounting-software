@@ -1,125 +1,172 @@
-@import url('https://fonts.googleapis.com/css2?family=Assistant:wght@200..800&family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap');
-
-*{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-:root{
-    --primary-color: #9f79ff;
-    --secondary-color: #510585;
-    --tertiary-color: #3b00b3;
-    --quarter-color: #ff8c42;
-    --white: #fff;
-    --bg-color:  #f0f0f0;
-    --primary-font:  "Assistant", sans-serif;
-    --secondary-font: 'Roboto Condensed', sans-serif;
-}
+@import url('./styles.css');
 
 body {
-    font-family: var(--secondary-font);
-    background-color: var(--bg-color);
-    height: 100vh;
-}
-
-.container-header{
-    display: flex;
-    justify-content: space-between;
-    background-color: var(--secondary-color);
-    color: var(--white);
-    font-family: var(--primary-font);
-}
-
-.content-header {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 1rem;
-    padding: 1rem;
-    font-size: 12px;
-}
-
-.container-header img {
-    width: 80px;
-    height: 80px;
-    object-fit: cover;
-    border-radius: 100px;
-    box-shadow: 0 0 1rem rgba(134, 5, 255, 0.808);
+    background: linear-gradient(135deg, var(--gray-50) 0%, var(--gray-100) 100%);
+    min-height: 100vh;
 }
 
 .container-main {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 1rem;
-    padding: 1rem;
-    height: 85%;
+    padding: var(--spacing-xl);
+    min-height: calc(100vh - 70px);
 }
 
 .categories {
-    background-color: var(--white);
-    border-radius: 8px;
-    box-shadow: 0 0 100px rgba(69, 3, 131, 0.404);
+    background: var(--white);
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-xl);
     display: flex;
-    justify-content: center;
-    align-items: center;
     flex-direction: column;
-    gap: 3rem;
-    padding: 3rem;
-    width: 60%;
+    gap: var(--spacing-xl);
+    padding: var(--spacing-xl);
+    width: 100%;
+    max-width: 1000px;
+    animation: fadeIn var(--transition-base);
 }
 
-.categories h2{
+.categories h2 {
     font-size: 2.5rem;
-    color: var(--secondary-color);
-    font-weight: bold;
+    color: var(--gray-900);
+    font-weight: 700;
+    text-align: center;
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
 }
 
 .container-categories {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 4rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: var(--spacing-lg);
     width: 100%;
 }
 
 .cards-categories {
-    background-color: var(--primary-color);
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(69, 3, 131, 0.404);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    gap: 1rem;
-    padding: 1rem;
-    font-size: 2rem;
-    color: var(--secondary-color);
+    background: linear-gradient(135deg, rgba(99, 102, 241, 0.05) 0%, rgba(139, 92, 246, 0.05) 100%);
+    border: 2px solid var(--gray-200);
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-lg);
+    transition: all var(--transition-base);
+    position: relative;
+    overflow: hidden;
 }
 
-.options{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    gap: 1rem;
+.cards-categories::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--primary-color) 0%, var(--secondary-color) 100%);
 }
 
-.options-button{
-    background-color: var(--secondary-color);
+.cards-categories:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--shadow-xl);
+    border-color: var(--primary-color);
+}
+
+.cards-categories h3 {
+    font-size: 1.5rem;
+    color: var(--gray-900);
+    margin-bottom: var(--spacing-md);
+    font-weight: 600;
+}
+
+.options {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing);
+}
+
+.options-button {
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
     color: var(--white);
-    padding: 1rem;
-    border-radius: 8px;
-    font-weight: bold;
-    font-size: 1rem;
-    width: 80%;
-    border: transparent;
+    padding: 1rem 1.5rem;
+    border-radius: var(--radius);
+    font-weight: 500;
+    font-size: 0.9375rem;
+    width: 100%;
+    border: none;
     cursor: pointer;
-    transition: 0.3s ease-in-out;
+    transition: all var(--transition-base);
+    box-shadow: var(--shadow-md);
+    font-family: var(--font-primary);
+    position: relative;
+    overflow: hidden;
 }
 
-.options-button:hover{
-    background-color: var(--quarter-color);
-    transition: 0.3s ease-in-out;
+.options-button::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.2);
+    transform: translate(-50%, -50%);
+    transition: width 0.6s, height 0.6s;
+}
+
+.options-button:hover::before {
+    width: 300px;
+    height: 300px;
+}
+
+.options-button:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-lg);
+    background: linear-gradient(135deg, var(--primary-light) 0%, var(--primary-color) 100%);
+}
+
+.options-button:active {
+    transform: translateY(-1px);
+}
+
+@media (max-width: 768px) {
+    .container-categories {
+        grid-template-columns: 1fr;
+    }
+    
+    .container-main {
+        padding: var(--spacing);
+        min-height: calc(100vh - 70px);
+    }
+    
+    .categories {
+        padding: var(--spacing-lg);
+        width: 100%;
+    }
+    
+    .categories h2 {
+        font-size: 2rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .container-main {
+        padding: var(--spacing-sm);
+    }
+    
+    .categories {
+        padding: var(--spacing);
+    }
+    
+    .categories h2 {
+        font-size: 1.5rem;
+    }
+    
+    .cards-categories h3 {
+        font-size: 1.25rem;
+    }
+    
+    .options-button {
+        padding: 0.875rem 1rem;
+        font-size: 0.875rem;
+    }
 }

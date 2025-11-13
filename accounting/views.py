@@ -250,18 +250,23 @@ def libro_mayor_data(request, year, month):
 
 @login_required
 def estado_de_resultados_data(request, year, month):
+    # Obtener todas las cuentas de ingresos (5xxx) y gastos (4xxx)
     cuentas = BalanceDeComprobacion.objects.filter(
         fecha__year=year, fecha__month=month
     ).filter(
-        Q(codigoCuenta__startswith='5101') & ~Q(codigoCuenta='510101') | Q(codigoCuenta__startswith='41')
+        Q(codigoCuenta__startswith='51') | Q(codigoCuenta__startswith='41')
     ).values('codigoCuenta', 'nombreCuenta').annotate(
         total_cargo=Sum('Cargo'),
         total_abono=Sum('Abono')
-    )
+    ).order_by('codigoCuenta')
 
-    ingresos = sum(cuenta['total_abono'] for cuenta in cuentas if cuenta['codigoCuenta'].startswith('5101'))
+    # Calcular ingresos (cuentas 5xxx)
+    ingresos = sum(cuenta['total_abono'] for cuenta in cuentas if cuenta['codigoCuenta'].startswith('51'))
+    
+    # Calcular gastos (cuentas 4xxx)
     gastos = sum(cuenta['total_cargo'] for cuenta in cuentas if cuenta['codigoCuenta'].startswith('41'))
 
+    # Calcular utilidad o pérdida
     utilidad_perdida = ingresos - gastos
 
     data = {
@@ -386,24 +391,39 @@ def agregar_empleado(request):
 
 # Función para calcular los valores adicionales
 def calcular_datos_empleado(empleado):
-
+    """
+    Calcula los costos laborales semanales según las leyes de El Salvador
+    """
+    
+    # Costo real: días trabajados × salario diario
     costo_real = round(empleado.diasTrabajadosEmpleado * empleado.salarioDiarioEmpleado, 2)
 
-    # Verificamos que el cálculo del séptimo día no sea negativo
-    septimo_dia = round(max(0, (7 - empleado.diasTrabajadosEmpleado) * empleado.salarioDiarioEmpleado) + costo_real, 2)
+    # Séptimo día: 1/6 del salario semanal trabajado (Art. 141 Código de Trabajo)
+    # El empleador debe pagar un día adicional de descanso por cada 6 días trabajados
+    septimo_dia = round(costo_real + (costo_real / 6), 2)
 
-    # Cálculo de vacaciones con una constante de 15 días y recargo de 30%, dividido entre 52 semanas
-    vacaciones = round(((empleado.salarioDiarioEmpleado * 15) + 0.30 * (empleado.salarioDiarioEmpleado * 15)) / 52, 2)
+    # Vacaciones: 15 días + 30% de recargo anual, prorrateado semanalmente (Art. 177 Código de Trabajo)
+    vacaciones = round(((empleado.salarioDiarioEmpleado * 15) * 1.30) / 52, 2)
 
-    # Aguinaldo con una constante de 21 días, dividido entre 52 semanas
-    aguinaldo = round((empleado.salarioDiarioEmpleado * 21) / 52, 2)
+    # Aguinaldo: 15 días de salario después de 1 año (Art. 198 Código de Trabajo)
+    # Nota: Puede ser hasta 21 días según antigüedad, pero se usa 15 como base
+    aguinaldo = round((empleado.salarioDiarioEmpleado * 15) / 52, 2)
 
-    # Cálculo de ISSS, AFP, e INCAFF en función de vacaciones y séptimo día
-    isss = round((vacaciones + septimo_dia) * 0.0775, 2)
-    afp = round((vacaciones + septimo_dia) * 0.0875, 2)
-    incaff = round((vacaciones + septimo_dia) * 0.01, 2)
+    # Base para calcular aportes patronales (salario semanal con séptimo día)
+    base_calculo = septimo_dia
 
-    # Salario total
+    # ISSS: 7.75% sobre salario (Aporte patronal - Ley del Seguro Social)
+    # Tope máximo: $1,000 mensuales
+    isss = round(base_calculo * 0.0775, 2)
+
+    # AFP: 7.75% sobre salario (Aporte patronal - Ley del Sistema de Ahorro para Pensiones)
+    # Tope máximo: salario máximo cotizable
+    afp = round(base_calculo * 0.0775, 2)
+
+    # INSAFORP (antes INCAFF): 1% sobre salario (Ley de Formación Profesional)
+    incaff = round(base_calculo * 0.01, 2)
+
+    # Salario total semanal (todos los conceptos)
     salario_total = round(septimo_dia + vacaciones + aguinaldo + isss + afp + incaff, 2)
 
 

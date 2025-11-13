@@ -4,7 +4,6 @@ document.addEventListener('DOMContentLoaded', async function() {
     const year = today.getFullYear();
     const month = String(today.getMonth() + 1).padStart(2, '0');
     fechaInput.value = `${year}-${month}`;
-    fechaInput.addEventListener('change', fetchEstadoCapital());
 
     async function fetchEstadoCapital() {
         const fecha = fechaInput.value;
@@ -60,4 +59,10 @@ document.addEventListener('DOMContentLoaded', async function() {
             console.error("Error en la solicitud:", error);
         }
     }
+    
+    // Agregar el event listener correctamente (sin ejecutar la función)
+    fechaInput.addEventListener('change', fetchEstadoCapital);
+    
+    // Cargar datos automáticamente al iniciar
+    await fetchEstadoCapital();
 });

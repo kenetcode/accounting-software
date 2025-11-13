@@ -1,77 +1,57 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Estado Capital - Software Contable TAS</title>
-    <link rel="stylesheet" href="../static/css/sidebar.css">
-    <link rel="stylesheet" href="../static/css/estadosFinancieros.css">
+    <title>Estado de Capital - Software Contable TAS</title>
+    <link rel="stylesheet" href="{% static 'css/navbar.css' %}">
+    <link rel="stylesheet" href="{% static 'css/estadosFinancieros.css' %}">
 </head>
 <body>
-    <!-- Sidebar -->
-    <section id="sidebar">
-        <div class="toggle-button">
-            <span class="activate">&#9776;</span>
-            <span class="deactivate">&#9668;</span>
+    {% include 'includes/navbar.html' %}
+    
+    <main class="libro-mayor-container">
+        <div class="page-header">
+            <h2 class="section-title">Estado de Capital</h2>
+            <a href="{% url 'accounting:estadosFinancieros' %}" class="btn-back">
+                <span>←</span> Regresar a Estados Financieros
+            </a>
         </div>
-        <ul>
-            <li><img src="../static/img/logo.webp" alt="logo"></li>
-            <li class="home-button">Home</li>
-            <li class="transacciones-button"style="display: none;">Transacciones</li>
-            <li class="costos-button"style="display: none;">Control de Costos</li>
-            <li class="catalogo-button"style="display: none;">Catalogo de Cuentas</li>
-            <li class="libro-button"style="display: none;">Libro Mayor</li>
-            <li class="estados-button">Estados Financieros</li>
-            <li class="cierre-button"style="display: none;">Cierre Contable</li>
-            <li class="cerrar-sesion">Cerrar Sesion</li>
-        </ul>
-    </section>
-
-    <!-- Contenido Principal -->
-    <main class="main-content">
-        <header class="container-header">
-            <div class="content-header">
-                <h1 class="title">Software Contable TAS</h1>
+        <div class="fecha-container">
+            <div>
+                <label for="fecha">Fecha:</label>
+                <input type="month" id="fecha" name="fecha">
             </div>
-        </header>
-
-        <div class="libro-mayor-container">
-            <div class="fecha-container">
-                <h2 class="section-title">Estado Capital</h2>
-                <div>
-                    <label for="fecha">Fecha:</label>
-                    <input type="month" id="fecha" name="fecha">
-                </div>
-            </div>
-            <div class="table-container">
-                <table class="libro-mayor-table">
-                    <thead>
-                        <tr>
-                            <th>Código</th>
-                            <th>Nombre de Cuenta</th>
-                            <th>Cargo</th>
-                            <th>Abono</th>
-                        </tr>
-                    </thead>
-                    <tbody id="estado-capital-body">
-                        <!-- Filas adicionales se llenarán dinámicamente -->
-                    </tbody>
-                    <tfoot>
-                        <tr>
-                            <td colspan="2">TOTAL:</td>
-                            <td id="total-cargo">$0</td>
-                            <td id="total-abono">$0</td>
-                        </tr>
-                        <tr>
-                            <td colspan="3">Capital Actualizado:</td>
-                            <td id="capital">$0</td>
-                        </tr>
-                    </tfoot>
-                </table>
-            </div>
+        </div>
+        <div class="table-container">
+            <table class="libro-mayor-table">
+                <thead>
+                    <tr>
+                        <th>Código</th>
+                        <th>Nombre de Cuenta</th>
+                        <th>Cargo</th>
+                        <th>Abono</th>
+                    </tr>
+                </thead>
+                <tbody id="estado-capital-body">
+                    <!-- Filas adicionales se llenarán dinámicamente -->
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="2"><strong>TOTAL:</strong></td>
+                        <td id="total-cargo">$0.00</td>
+                        <td id="total-abono">$0.00</td>
+                    </tr>
+                    <tr>
+                        <td colspan="3"><strong>Capital Actualizado:</strong></td>
+                        <td id="capital">$0.00</td>
+                    </tr>
+                </tfoot>
+            </table>
         </div>
     </main>
-    <script src="../static/js/sidebar.js"></script>
-    <script src="../static/js/estadoCapital.js"></script>
+    
+    <script src="{% static 'js/estadoCapital.js' %}"></script>
 </body>
 </html>
