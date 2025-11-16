@@ -16,4 +16,4 @@ python manage.py migrate
 python manage.py runscript crear_cuentas
 python manage.py runscript crear_departamentos
 
-#python manage.py shell -c "from django.contrib.auth import get_user_model; User = get_user_model(); User.objects.create_superuser('admin', 'admin@gmail.com', 'admin')"
+python manage.py shell -c "from django.contrib.auth import get_user_model; User = get_user_model(); User.objects.create_superuser('admin', 'admin@gmail.com', 'admin')"
