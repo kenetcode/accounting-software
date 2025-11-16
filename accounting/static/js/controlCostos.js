@@ -54,15 +54,15 @@ document.querySelector('.btn-guardar').addEventListener('click', function (event
                 row.innerHTML = `
                 <td>${data.nombreEmpleado}</td>
                 <td>${data.puestoEmpleado}</td>
-                <td>${data.salarioDiarioEmpleado}</td>
-                <td>${data.costo_real}</td>
-                <td>${data.septimo_dia}</td>
-                <td>${data.vacaciones}</td>
-                <td>${data.aguinaldo}</td>
-                <td>${data.isss}</td>
-                <td>${data.afp}</td>
-                <td>${data.incaff}</td>
-                <td>${data.salario_total}</td>
+                <td>$${parseFloat(data.salarioDiarioEmpleado).toFixed(2)}</td>
+                <td>$${parseFloat(data.costo_real).toFixed(2)}</td>
+                <td>$${parseFloat(data.septimo_dia).toFixed(2)}</td>
+                <td>$${parseFloat(data.vacaciones).toFixed(2)}</td>
+                <td>$${parseFloat(data.aguinaldo).toFixed(2)}</td>
+                <td>$${parseFloat(data.isss).toFixed(2)}</td>
+                <td>$${parseFloat(data.afp).toFixed(2)}</td>
+                <td>$${parseFloat(data.incaff).toFixed(2)}</td>
+                <td>$${parseFloat(data.salario_total).toFixed(2)}</td>
                 <td><button class="two-btn" value="${data.codigoEmpleado}" onclick="eliminarEmpleado(this)">Eliminar</button></td>
             `;
                 limpiarCamposFormulario();

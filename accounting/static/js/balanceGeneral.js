@@ -30,10 +30,23 @@ async function obtenerUtilidad(anio, mes) {
 // Función asincrónica para procesar las transacciones de un año y mes específicos
 procesarTransacciones = async (anio, mes, utilidad_perdida) => {
     try {
+        // Resetear totales
+        totalCargos = 0;
+        totalAbonos = 0;
+        
         // Obtener datos del endpoint de Django
         const response = await fetch(`/balancecomprobacion/${anio}/${mes}`);
         const transacciones = await response.json();
-        console.log(transacciones);
+        console.log("Transacciones recibidas:", transacciones);
+        
+        // Verificar si hay transacciones
+        if (!transacciones || transacciones.length === 0) {
+            console.log("No hay transacciones para este período");
+            document.getElementById('tabla-resultados').innerHTML = '<tr><td colspan="4" style="text-align:center;">No hay datos disponibles para este período</td></tr>';
+            totalTabla(); // Actualizar totales a 0
+            return;
+        }
+        
         let codigoCuenta = transacciones[0].codigoCuenta;
         colocarEncabezados(codigoCuenta);
         transacciones.forEach(transaccion => {
@@ -49,6 +62,7 @@ procesarTransacciones = async (anio, mes, utilidad_perdida) => {
         // En este caso, el endpoint ya devuelve los datos agrupados y con totales
     } catch (error) {
         console.error("Error al procesar transacciones:", error);
+        document.getElementById('tabla-resultados').innerHTML = '<tr><td colspan="4" style="text-align:center; color: red;">Error al cargar los datos</td></tr>';
     }
 }
 
@@ -56,8 +70,6 @@ procesarTransacciones = async (anio, mes, utilidad_perdida) => {
 fecha.addEventListener('change', async () => {
     const [anio, mes] = fecha.value.split('-');
     console.log(anio, mes);
-    totalCargos = 0;
-    totalAbonos = 0;
     const tablaResultados = document.getElementById('tabla-resultados');
     tablaResultados.innerHTML = ""; // Limpiar resultados anteriores
     const utilidad_perdida = await obtenerUtilidad(anio, mes);
@@ -68,15 +80,22 @@ async function imprimirTabla(resultado, utilidad_perdida) {
     const tablaResultados = document.getElementById('tabla-resultados');
     let saldoDeudor = 0;
     let saldoAcreedor = 0;
+    
+    // Calcular saldos con valor absoluto
     if (resultado.total_cargo > resultado.total_abono) {
-        saldoDeudor = resultado.saldo;
+        saldoDeudor = Math.abs(resultado.saldo);
     } else if (resultado.total_cargo < resultado.total_abono) {
-        saldoAcreedor = resultado.saldo;
+        saldoAcreedor = Math.abs(resultado.saldo);
     }
-    if (resultado.codigoCuenta < 4000) {
+    
+    // Solo mostrar cuentas de balance (activos 1xxx, pasivos 2xxx, capital 3xxx)
+    const primerDigito = resultado.codigoCuenta[0];
+    if (primerDigito === '1' || primerDigito === '2' || primerDigito === '3') {
         totalCargos += saldoDeudor;
         totalAbonos += saldoAcreedor;
+        
         if (resultado.nombreCuenta == 'Capital social') {
+            // Agregar utilidad/pérdida al capital social
             const fila = document.createElement('tr');
             totalAbonos += utilidad_perdida;
             fila.innerHTML = `

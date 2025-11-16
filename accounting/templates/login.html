@@ -1,30 +1,67 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TechDynamics - Inicio de Sesión</title>
-    <link rel="stylesheet" href="../static/css/login.css">
+    <title>TAS Software - Inicio de Sesión</title>
+    <link rel="stylesheet" href="{% static 'css/login.css' %}">
 </head>
 <body>
     <div class="login-container" id="login">
-        <div class="icon"><img src="https://img.icons8.com/external-bearicons-detailed-outline-bearicons/64/external-login-call-to-action-bearicons-detailed-outline-bearicons-1.png" alt="external-login-call-to-action-bearicons-detailed-outline-bearicons-1"/></div>
+        <!-- Logo y nombre de la empresa -->
+        <div class="brand-container">
+            <div class="logo-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+                    <rect width="64" height="64" rx="12" fill="url(#gradient)"/>
+                    <path d="M16 24h32M16 32h32M16 40h32" stroke="white" stroke-width="3" stroke-linecap="round"/>
+                    <circle cx="48" cy="48" r="8" fill="#10b981"/>
+                    <path d="M45 48l2 2 4-4" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <defs>
+                        <linearGradient id="gradient" x1="0" y1="0" x2="64" y2="64">
+                            <stop offset="0%" stop-color="#667eea"/>
+                            <stop offset="100%" stop-color="#764ba2"/>
+                        </linearGradient>
+                    </defs>
+                </svg>
+            </div>
+            <h1 class="brand-name">TAS Software</h1>
+            <p class="brand-tagline">Sistema Contable Integral</p>
+        </div>
+        
         <h2>Inicio de Sesión</h2>
+        
         <form class="information-container" method="POST" action="#">
             {% csrf_token %}
             <div class="username-container">
-                <img src="https://img.icons8.com/ios-glyphs/30/user--v1.png" alt="user"/>
+                <span class="input-icon">👤</span>
                 <input type="text" id="input-username" placeholder="Nombre de Usuario" required name="username">
             </div>
             <div class="password-container">
-                <img src="https://img.icons8.com/material-rounded/24/password.png" alt="password"/>
+                <span class="input-icon">🔒</span>
                 <input type="password" id="input-password" placeholder="Contraseña" required name="password">
                 <button type="button" id="toggle-password" class="toggle-password">👁</button>
             </div>
-            <button type="submit" class="submit" id="submit">Ingresar</button>
-            <div class="error-container" id="error-container">{{ error }}</div>
+            <button type="submit" class="submit" id="submit">
+                <span>Ingresar</span>
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M5 12h14M12 5l7 7-7 7"/>
+                </svg>
+            </button>
+            {% if error %}
+            <div class="error-container" id="error-container">
+                <span class="error-icon">⚠️</span>
+                <span>{{ error }}</span>
+            </div>
+            {% else %}
+            <div class="error-container" id="error-container" style="display: none;"></div>
+            {% endif %}
         </form>
+        
+        <div class="footer-text">
+            <p>© 2025 TAS Software. Todos los derechos reservados.</p>
+        </div>
     </div>
-    <script src="../static/js/login.js"></script>
+    <script src="{% static 'js/login.js' %}"></script>
 </body>
 </html>

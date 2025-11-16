@@ -1,110 +1,191 @@
-@import url('https://fonts.googleapis.com/css2?family=Assistant:wght@200..800&family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('./styles.css');
 
-*{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-:root {
-    --primary-color: #9f79ff;
-    --secondary-color: #510585;
-    --tertiary-color: #3b00b3;
-    --quarter-color: #ff8c42;
-    --white: #fff;
-    --bg-color: #f0f0f0;
-    --primary-font: "Assistant", sans-serif;
-    --secondary-font: "Roboto Condensed", sans-serif;
-}
-
-#sidebar.activar{
-    left: 0px;
-    z-index: 1;
-}
-
-#sidebar{
+#sidebar {
     position: fixed;
-    width: 200px;
-    height: 100%;
-    top: 0px;
-    background: #1a1a1aec;
-    left: -200px;
-    font-family: var(--primary-font);
-    transition: all 0.8s ease-in-out;
-    z-index: 1;
+    width: 280px;
+    height: 100vh;
+    top: 0;
+    left: -280px;
+    background: linear-gradient(180deg, var(--gray-900) 0%, var(--gray-800) 100%);
+    font-family: var(--font-primary);
+    transition: all var(--transition-base);
+    z-index: 1000;
+    box-shadow: var(--shadow-xl);
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+#sidebar.activar {
+    left: 0;
 }
 
 #sidebar img {
     width: 100px;
     height: 100px;
     object-fit: cover;
-    border-radius: 100px;
-    box-shadow: 0 0 1rem rgba(134, 5, 255, 0.808);
+    border-radius: var(--radius-full);
+    box-shadow: var(--shadow-lg);
+    border: 3px solid var(--primary-color);
+    margin: var(--spacing-lg) auto;
+    display: block;
 }
 
-#sidebar ul li{
-    color: var(--primary-color);
-    font-weight: bold;
-    text-align: center;
-    padding: 15px 10px;
-    border-bottom: 2px solid var(--secondary-color);
+#sidebar ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+#sidebar ul li {
+    color: var(--gray-300);
+    font-weight: 500;
+    text-align: left;
+    padding: 1rem 1.5rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     cursor: pointer;
-    font-size: large;
-    transition: all 0.3s linear;
+    font-size: 0.9375rem;
+    transition: all var(--transition-fast);
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
 }
 
-#sidebar ul li:nth-child(1){
+#sidebar ul li:first-child {
     cursor: default;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+    padding-bottom: var(--spacing-lg);
 }
 
-#sidebar ul li:hover{
-    color: var(--quarter-color);
-    font-size: 1.5rem;
-    transition: all 0.3s linear;
-}
-
-#sidebar .toggle-button{
+#sidebar ul li:not(:first-child)::before {
+    content: '';
     position: absolute;
-    left: 230px;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 4px;
+    background: var(--primary-color);
+    transform: scaleY(0);
+    transition: transform var(--transition-fast);
+}
+
+#sidebar ul li:hover:not(:first-child) {
+    color: var(--white);
+    background: rgba(99, 102, 241, 0.1);
+    padding-left: 2rem;
+}
+
+#sidebar ul li:hover:not(:first-child)::before {
+    transform: scaleY(1);
+}
+
+#sidebar ul li:last-child {
+    border-bottom: none;
+    margin-top: var(--spacing);
+    padding-top: var(--spacing-lg);
+    border-top: 2px solid rgba(255, 255, 255, 0.2);
+    color: var(--danger-light);
+}
+
+#sidebar ul li:last-child:hover {
+    background: rgba(239, 68, 68, 0.1);
+    color: var(--danger);
+}
+
+#sidebar .toggle-button {
+    position: absolute;
+    left: 300px;
     top: 30px;
-    font-size: 24px;
+    font-size: 28px;
     color: var(--white);
     cursor: pointer;
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+    width: 45px;
+    height: 45px;
+    border-radius: var(--radius);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: var(--shadow-lg);
+    transition: all var(--transition-base);
+    z-index: 1001;
 }
 
-#sidebar .toggle-button span{
+#sidebar .toggle-button:hover {
+    transform: scale(1.1);
+    box-shadow: var(--shadow-xl);
+}
+
+#sidebar .toggle-button span {
     display: block;
-    width: 40px;
-    text-align: center;
-    font-size: 30px;
     position: absolute;
-    top: 0px;
-
+    transition: all var(--transition-base);
 }
 
-.container-header{
+.activate {
+    opacity: 1;
+    transform: rotate(0deg);
+}
+
+.deactivate {
+    opacity: 0;
+    transform: rotate(-90deg);
+}
+
+.container-header {
     display: flex;
     justify-content: flex-end;
-    background-color: var(--secondary-color);
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
     color: var(--white);
-    font-family: var(--primary-font);
+    font-family: var(--font-primary);
+    padding: var(--spacing-lg);
+    box-shadow: var(--shadow-lg);
+    position: sticky;
+    top: 0;
+    z-index: 100;
 }
 
 .content-header {
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 1rem;
-    height: 100px;
-    font-size: 12px;
+    padding: 0;
+    height: auto;
 }
 
-.activate{
-    opacity: 100;
-    transition: all 1s ease-in-out;
+.content-header .title {
+    color: var(--white);
+    font-family: var(--font-secondary);
+    font-size: 1.5rem;
+    font-weight: 700;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.deactivate{
-    opacity: 0;
-    transition: all 1s ease-in-out;
+/* Scrollbar personalizado para sidebar */
+#sidebar::-webkit-scrollbar {
+    width: 6px;
+}
+
+#sidebar::-webkit-scrollbar-track {
+    background: var(--gray-800);
+}
+
+#sidebar::-webkit-scrollbar-thumb {
+    background: var(--primary-color);
+    border-radius: var(--radius-full);
+}
+
+#sidebar::-webkit-scrollbar-thumb:hover {
+    background: var(--primary-light);
+}
+
+@media (max-width: 768px) {
+    #sidebar {
+        width: 260px;
+        left: -260px;
+    }
+    
+    #sidebar .toggle-button {
+        left: 280px;
+    }
 }

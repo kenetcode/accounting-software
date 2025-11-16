@@ -1,0 +1,20 @@
+{% load static %}
+{% if breadcrumbs %}
+<div class="breadcrumb">
+    <div class="breadcrumb-container">
+        {% for breadcrumb in breadcrumbs %}
+            {% if not forloop.last %}
+                <div class="breadcrumb-item">
+                    <a href="{{ breadcrumb.url }}">{{ breadcrumb.name }}</a>
+                    <span class="breadcrumb-separator">›</span>
+                </div>
+            {% else %}
+                <div class="breadcrumb-item active">
+                    {{ breadcrumb.name }}
+                </div>
+            {% endif %}
+        {% endfor %}
+    </div>
+</div>
+{% endif %}
+

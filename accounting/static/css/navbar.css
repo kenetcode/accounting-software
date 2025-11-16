@@ -1,0 +1,305 @@
+@import url('./styles.css');
+
+.navbar {
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+    box-shadow: var(--shadow-lg);
+    padding: 0;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    width: 100%;
+}
+
+.navbar-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 var(--spacing-lg);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 70px;
+}
+
+.navbar-brand {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+    text-decoration: none;
+    color: var(--white);
+    font-family: var(--font-secondary);
+    font-weight: 700;
+    font-size: 1.25rem;
+    transition: all var(--transition-fast);
+}
+
+.navbar-brand:hover {
+    transform: scale(1.05);
+}
+
+.navbar-brand img {
+    width: 50px;
+    height: 50px;
+    border-radius: var(--radius-full);
+    border: 2px solid var(--white);
+    box-shadow: var(--shadow-md);
+}
+
+.navbar-menu {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.navbar-item {
+    position: relative;
+}
+
+.navbar-link {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+    padding: 0.625rem 1rem;
+    color: var(--white);
+    text-decoration: none;
+    font-family: var(--font-primary);
+    font-weight: 500;
+    font-size: 0.875rem;
+    border-radius: var(--radius);
+    transition: all var(--transition-fast);
+    white-space: nowrap;
+}
+
+.navbar-link:hover {
+    background: rgba(255, 255, 255, 0.15);
+    transform: translateY(-2px);
+}
+
+.navbar-link.active {
+    background: rgba(255, 255, 255, 0.2);
+    font-weight: 600;
+}
+
+.navbar-link i {
+    font-size: 1rem;
+}
+
+.navbar-actions {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+}
+
+.btn-navbar {
+    padding: 0.625rem 1.25rem;
+    background: rgba(255, 255, 255, 0.2);
+    color: var(--white);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: var(--radius);
+    font-family: var(--font-primary);
+    font-weight: 500;
+    font-size: 0.875rem;
+    cursor: pointer;
+    transition: all var(--transition-base);
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+}
+
+.btn-navbar:hover {
+    background: rgba(255, 255, 255, 0.3);
+    border-color: rgba(255, 255, 255, 0.5);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+
+.btn-navbar-danger {
+    background: rgba(239, 68, 68, 0.2);
+    border-color: rgba(239, 68, 68, 0.3);
+}
+
+.btn-navbar-danger:hover {
+    background: rgba(239, 68, 68, 0.3);
+    border-color: rgba(239, 68, 68, 0.5);
+}
+
+.navbar-toggle {
+    display: none;
+    background: none;
+    border: none;
+    color: var(--white);
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: var(--spacing-sm);
+    border-radius: var(--radius);
+    transition: all var(--transition-fast);
+}
+
+.navbar-toggle:hover {
+    background: rgba(255, 255, 255, 0.15);
+}
+
+/* Breadcrumb */
+.breadcrumb {
+    background: var(--white);
+    padding: var(--spacing) var(--spacing-lg);
+    border-bottom: 2px solid var(--gray-200);
+    box-shadow: var(--shadow-sm);
+}
+
+.breadcrumb-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    font-family: var(--font-primary);
+    font-size: 0.875rem;
+}
+
+.breadcrumb-item {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+    color: var(--gray-600);
+}
+
+.breadcrumb-item a {
+    color: var(--primary-color);
+    text-decoration: none;
+    transition: all var(--transition-fast);
+}
+
+.breadcrumb-item a:hover {
+    color: var(--primary-dark);
+    text-decoration: underline;
+}
+
+.breadcrumb-separator {
+    color: var(--gray-400);
+    margin: 0 var(--spacing-xs);
+}
+
+.breadcrumb-item.active {
+    color: var(--gray-900);
+    font-weight: 600;
+}
+
+/* Botón de regreso */
+.btn-back {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    padding: 0.625rem 1rem;
+    background: var(--gray-100);
+    color: var(--gray-700);
+    border: 2px solid var(--gray-200);
+    border-radius: var(--radius);
+    font-family: var(--font-primary);
+    font-weight: 500;
+    font-size: 0.875rem;
+    cursor: pointer;
+    transition: all var(--transition-base);
+    text-decoration: none;
+    margin-bottom: var(--spacing-md);
+}
+
+.btn-back:hover {
+    background: var(--gray-200);
+    border-color: var(--gray-300);
+    transform: translateX(-4px);
+    box-shadow: var(--shadow-sm);
+}
+
+.btn-back i {
+    font-size: 1rem;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+    .navbar-menu {
+        gap: var(--spacing-xs);
+    }
+    
+    .navbar-link {
+        padding: 0.5rem 0.75rem;
+        font-size: 0.8125rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .navbar-toggle {
+        display: block;
+    }
+    
+    .navbar-menu {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+        flex-direction: column;
+        align-items: stretch;
+        padding: var(--spacing);
+        box-shadow: var(--shadow-xl);
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height var(--transition-base);
+    }
+    
+    .navbar-menu.active {
+        max-height: 600px;
+        overflow-y: auto;
+    }
+    
+    .navbar-item {
+        width: 100%;
+    }
+    
+    .navbar-link {
+        width: 100%;
+        padding: var(--spacing);
+        border-radius: var(--radius);
+    }
+    
+    .navbar-actions {
+        flex-direction: column;
+        width: 100%;
+        gap: var(--spacing-xs);
+        padding-top: var(--spacing);
+        border-top: 1px solid rgba(255, 255, 255, 0.2);
+    }
+    
+    .btn-navbar {
+        width: 100%;
+        justify-content: center;
+    }
+    
+    .navbar-brand span {
+        font-size: 1rem;
+    }
+    
+    .navbar-brand img {
+        width: 40px;
+        height: 40px;
+    }
+}
+
+@media (max-width: 480px) {
+    .navbar-container {
+        padding: 0 var(--spacing);
+    }
+    
+    .navbar-brand span {
+        display: none;
+    }
+    
+    .btn-back {
+        font-size: 0.8125rem;
+        padding: 0.5rem 0.75rem;
+    }
+}
+

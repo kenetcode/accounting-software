@@ -17,6 +17,18 @@ let tlCargos = 0;
 let tlAbonos = 0;
 let opcionSeleccionada = '';
 
+// Establecer fecha actual por defecto y obtener número de partida
+document.addEventListener('DOMContentLoaded', async function() {
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = String(today.getMonth() + 1).padStart(2, '0');
+    const day = String(today.getDate()).padStart(2, '0');
+    fecha.value = `${year}-${month}-${day}`;
+    
+    // Obtener y mostrar el número de partida automáticamente
+    numeroPartida.textContent = `Partida No. ${await getNumeroTransaccion()}`;
+});
+
 fecha.addEventListener('change', async function () {
     numeroPartida.textContent = `Partida No. ${await getNumeroTransaccion()}`;
 });
@@ -53,12 +65,24 @@ const getCuenta = async () => {
 btnCuenta.addEventListener('click', async function () {
     opcionSeleccionada = cuenta.options[cuenta.selectedIndex].value;
     const rows = table.getElementsByTagName('tr');
-    if (opcionSeleccionada == '' || (cargo.value == '' && abono.value == '')) {
+    
+    // Obtener valores numéricos
+    const cargoNum = parseFloat(cargo.value) || 0;
+    const abonoNum = parseFloat(abono.value) || 0;
+    
+    // Validaciones
+    if (opcionSeleccionada == '') {
         alert.classList.toggle('actived');
-        alertText.textContent = 'Por favor, llene todos los campos';
-    } else if (cargo.value !== '' && abono.value !== '') {
+        alertText.textContent = 'Por favor, seleccione una cuenta';
+    } else if (cargo.value === '' && abono.value === '') {
         alert.classList.toggle('actived');
-        alertText.textContent = 'No puede tener cargo y abono a la vez';
+        alertText.textContent = 'Debe ingresar un valor en cargo o abono';
+    } else if (cargoNum === 0 && abonoNum === 0) {
+        alert.classList.toggle('actived');
+        alertText.textContent = 'No puede tener cargo y abono en 0';
+    } else if (cargoNum > 0 && abonoNum > 0) {
+        alert.classList.toggle('actived');
+        alertText.textContent = 'No puede tener cargo y abono con valores mayores a 0 al mismo tiempo';
     } else if (rows.length > 0) {
         const data = await getCuenta();
         if(validarEnTabla(data) === false){
@@ -99,21 +123,25 @@ function validarEnTabla(data){
 }
 
 function insertarEnTabla(data) {
+    // Convertir valores vacíos a 0
+    const cargoValor = cargo.value === '' ? '0' : cargo.value;
+    const abonoValor = abono.value === '' ? '0' : abono.value;
+    
     if (data.cuenta_detalle.codigo !== '' && data.cuenta_detalle.cuenta !== '') {
         table.innerHTML += `
                 <tr>
                     <td>${fecha.value}</td>
                     <td>${data.codigo}</td>
                     <td>${data.cuenta}</td>
-                    <td>${cargo.value}</td>
-                    <td>${abono.value}</td>
+                    <td>${cargoValor}</td>
+                    <td>${abonoValor}</td>
                 </tr>
                 <tr>
                     <td>${fecha.value}</td>
                     <td>${data.cuenta_detalle.codigo}</td>
                     <td>${data.cuenta_detalle.cuenta}</td>
-                    <td>${cargo.value}</td>
-                    <td>${abono.value}</td>
+                    <td>${cargoValor}</td>
+                    <td>${abonoValor}</td>
                 </tr>
             `;
     }else{
@@ -122,8 +150,8 @@ function insertarEnTabla(data) {
                     <td>${fecha.value}</td>
                     <td>${data.codigo}</td>
                     <td>${data.cuenta}</td>
-                    <td>${cargo.value}</td>
-                    <td>${abono.value}</td>
+                    <td>${cargoValor}</td>
+                    <td>${abonoValor}</td>
         </tr>
                 `;
     }
@@ -154,6 +182,8 @@ guardarTransacción = async () =>{
     } else{
         let numeroPartida = await getNumeroTransaccion();
         console.log(numeroPartida);
+        
+        // Primer bucle: registrar solo cuentas mayores en Transaccion
         for (let i = 0; i < rows.length; i++) {
             const cols = rows[i].getElementsByTagName('td');
             if(cols[1].textContent.length < 5){
@@ -168,9 +198,27 @@ guardarTransacción = async () =>{
                 registrarTransaccion(obj);
             }
         }
-        // Nuevo bucle para registrar en otra tabla
+        
+        // Segundo bucle: registrar en BalanceDeComprobacion
+        // Solo registrar la cuenta de detalle cuando existe, sino la cuenta mayor
         for (let i = 0; i < rows.length; i++) {
             const cols = rows[i].getElementsByTagName('td');
+            const codigoActual = cols[1].textContent;
+            
+            // Si es una cuenta mayor (< 5 caracteres), verificar si la siguiente fila es su cuenta de detalle
+            if (codigoActual.length < 5) {
+                // Verificar si hay una siguiente fila y si es cuenta de detalle
+                if (i + 1 < rows.length) {
+                    const nextCols = rows[i + 1].getElementsByTagName('td');
+                    const siguienteCodigo = nextCols[1].textContent;
+                    // Si la siguiente es cuenta de detalle (> 4 caracteres) y empieza con el código actual, saltarla
+                    if (siguienteCodigo.length > 4 && siguienteCodigo.startsWith(codigoActual)) {
+                        continue; // No registrar la cuenta mayor, solo la de detalle
+                    }
+                }
+            }
+            
+            // Registrar en Balance de Comprobación
             const obj = {
                 numero_partida: numeroPartida,
                 fecha: cols[0].textContent,
@@ -181,9 +229,23 @@ guardarTransacción = async () =>{
             }
             registrarTransaccionesCompletas(obj);
         }
+        
+        // Mostrar notificación de éxito
+        mostrarNotificacionExito();
+        
         limpiarTodo();
     }
-    console.log(data);
+}
+
+// Función para mostrar la notificación de éxito
+function mostrarNotificacionExito() {
+    const notification = document.getElementById('success-notification');
+    notification.classList.add('show');
+    
+    // Ocultar automáticamente después de 3 segundos
+    setTimeout(() => {
+        notification.classList.remove('show');
+    }, 3000);
 }
 
 registrarTransaccionesCompletas = async (data) => {
@@ -252,13 +314,22 @@ function getCookie(name) {
 
 
 
-limpiarTodo = () => {
+limpiarTodo = async () => {
     tlCargos = 0;
     tlAbonos = 0;
     totalCargo.textContent = `$${tlCargos}`;
     totalAbono.textContent = `$${tlAbonos}`;
     table.innerHTML = '';
-    fecha.value = '';
+    
+    // Restablecer fecha actual
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = String(today.getMonth() + 1).padStart(2, '0');
+    const day = String(today.getDate()).padStart(2, '0');
+    fecha.value = `${year}-${month}-${day}`;
+    
     fecha.disabled = false;
-    numeroPartida.textContent = '';
+    
+    // Actualizar número de partida
+    numeroPartida.textContent = `Partida No. ${await getNumeroTransaccion()}`;
 }

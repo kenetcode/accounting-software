@@ -1,20 +1,17 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inicio</title>
-    <link rel="stylesheet" href="../static/css/home.css">
+    <title>Inicio - Software Contable TAS</title>
+    <link rel="stylesheet" href="{% static 'css/navbar.css' %}">
+    <link rel="stylesheet" href="{% static 'css/home.css' %}">
 </head>
 
 <body>
-    <header class="container-header">
-        <div class="content-header">
-            <img src="../static/img/logo.webp" alt="logo">
-            <h1 class="title">Software Contable TAS</h1>
-        </div>
-    </header>
+    {% include 'includes/navbar.html' %}
     <main class="container-main">
         <section class="categories">
             <h2> CATEGORIAS </h2>
@@ -50,6 +47,6 @@
             </div>
         </section>
     </main>
-    <script src="../static/js/home.js"></script>
+    <script src="{% static 'js/home.js' %}"></script>
 </body>
 </html>

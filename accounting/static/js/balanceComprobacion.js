@@ -10,15 +10,30 @@ document.addEventListener('DOMContentLoaded', async function() {
     const year = today.getFullYear();
     const month = String(today.getMonth() + 1).padStart(2, '0');
     fecha.value = `${year}-${month}`;
-    procesarTransacciones(year, month)
+    await procesarTransacciones(year, month);
 });
 
 async function procesarTransacciones(anio, mes) {
     try {
+        // Resetear totales
+        totalCargos = 0;
+        totalAbonos = 0;
+        totalDeudor = 0;
+        totalAcreedor = 0;
+        
         // Obtener datos del endpoint de Django
         const response = await fetch(`/balancecomprobacion/${anio}/${mes}`);
         const transacciones = await response.json();
-        console.log(transacciones);
+        console.log("Transacciones recibidas:", transacciones);
+        
+        // Verificar si hay transacciones
+        if (!transacciones || transacciones.length === 0) {
+            console.log("No hay transacciones para este período");
+            document.getElementById('tabla-resultados').innerHTML = '<tr><td colspan="6" style="text-align:center;">No hay datos disponibles para este período</td></tr>';
+            colocarTabla();
+            return;
+        }
+        
         // En este caso, el endpoint ya devuelve los datos agrupados y con totales
         const resultados = transacciones.map(cuenta => {
             return {
@@ -35,6 +50,7 @@ async function procesarTransacciones(anio, mes) {
 
     } catch (error) {
         console.error("Error al procesar transacciones:", error);
+        document.getElementById('tabla-resultados').innerHTML = '<tr><td colspan="6" style="text-align:center; color: red;">Error al cargar los datos</td></tr>';
     }
 }
 
@@ -46,19 +62,23 @@ function renderResultados(resultados) {
     resultados.forEach(resultado => {
         let saldoDeudor = 0;
         let saldoAcreedor = 0;
-        let color = 'blue';
+        
+        // Calcular saldos deudor y acreedor
         if(resultado.TotalCargos > resultado.TotalAbonos){
             saldoDeudor = resultado.TotalCargos - resultado.TotalAbonos;
         }else if(resultado.TotalCargos < resultado.TotalAbonos){
             saldoAcreedor = resultado.TotalAbonos - resultado.TotalCargos;
         }
-        if(resultado.Codigo.length < 5){
-            totalCargos += resultado.TotalCargos;
-            totalAbonos += resultado.TotalAbonos;
-            totalDeudor += saldoDeudor;
-            totalAcreedor += saldoAcreedor;
-            color = 'black';
-        }
+        
+        // Sumar TODAS las cuentas a los totales
+        totalCargos += resultado.TotalCargos;
+        totalAbonos += resultado.TotalAbonos;
+        totalDeudor += saldoDeudor;
+        totalAcreedor += saldoAcreedor;
+        
+        // Color: negro para cuentas mayores, azul para cuentas de detalle
+        const color = resultado.Codigo.length < 5 ? 'black' : 'blue';
+        
         const fila = document.createElement('tr');
         fila.innerHTML = `
             <td>${resultado.Codigo}</td>
@@ -87,10 +107,6 @@ function colocarTabla() {
 }); */
 
 fecha.addEventListener('change', async () => {
-    totalCargos = 0;
-    totalAbonos = 0;
-    totalDeudor = 0;
-    totalAcreedor = 0;
     const [anio, mes] = fecha.value.split('-');
     await procesarTransacciones(anio, mes);
 });
